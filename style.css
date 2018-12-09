@@ -19,28 +19,77 @@ button:active {
 button:focus {
   outline: 0;
 }
-
-#menu button{
-	font-size: 1.2em;
+div#select {
+  margin: 2em auto 0 2em;
+  width: 80%;
+  display: block;
 }
 
-#menu button.cur{
-  background: black;
+div#select h1 {
+  font-size: 1.5em;
+}
+
+div#select a {
+  display: block;
+  margin: 0 1em 1em 0;
+  padding: 1em;
+  text-decoration: none;
+  border: 2px solid #9999cc;
+  border-radius: 5px;
+  color: #9999cc;
+  cursor: pointer;
+  width: 80%;
+  float: left;
+}
+
+@media (min-width: 560px) {
+  div#select a { width: 35%; }
+}
+
+div#select a h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+div#select ul li:hover {
+  background: #9999cc;
   color: white;
 }
 
-#menu button span.small{
-	font-size: .8em;
+div#qa {
+  display: none;
 }
 
-#q {
-  padding: 10px 0;
+div#qa header {
+  background: #9999cc;
+}
+
+div#qa header i {
+  padding: 10px;
+  background: #666666;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  float: left;
+}
+
+div#qa header div {
+  color: white;
+  height: 30px;
   text-align: center;
-  font-size: 90px;
+  padding-top: 5px;
+  font-size: 20px;
+}
+
+div#q {
+  font-size: 3em;
+  text-align: center;
+  padding: .5em;
 }
 
 #a {
-	text-align: center;
+  text-align: center;
 }
 
 #a button {
@@ -52,8 +101,7 @@ button:focus {
 	background: #666;
 }
 
-
-div#ok, div#ng {
+div#ok, div#ng, div#done {
 	position: absolute;
 	text-align: center;
 	display: none;

@@ -1,46 +1,38 @@
 var ctx = {
-	add: true,
-	addOK: 0,
-	subOK: 0,
-	addNG: 0,
-	subNG: 0,
+	qid: "",
 	curQ: null,
-	curAll: null,
-	addAll: [],
-	subAll: []
+	q: {add1: [], add2: [], sub1: [], sub2: []},
+	done: {add1: 0, add2: 0, sub1: 0, sub2: 0}
 };
 
 (function() {
 	function init() {
-		$("#menu button").on('click', function() {
-			ctx.add = (this.id == "menu_add");
-			$("#menu button").removeClass('cur');
-			$(this).addClass('cur');
-			newQuiz();
-		});
-
-		$("#a button").on('click', function() {
+		$("#a").on('click', function(e) {
 			if (ctx.curQ == null) { return; }
-			var a = $(this).text();
+			if (e.target.tagName !== 'BUTTON') { return; }
+			var btn = $(e.target);
+			if (btn.hasClass('ng')) { return; }
+			var a = btn.text();
 			if (a == ctx.curQ[2]) {
-				if (ctx.add) { ctx.addOK++; } else { ctx.subOK++; }
-				ctx.curAll.splice(ctx.curAll.indexOf(ctx.curQ), 1);
+				var cur = ctx.q[ctx.qid];
+				cur.splice(cur.indexOf(ctx.curQ), 1);
+				ctx.done[ctx.qid]++;
 				newQuiz();
-				$("#ok").show().delay(500).fadeOut(100);
+				if (cur.length > 0) {
+					$("#ok").show().delay(500).fadeOut(100);
+				}
 			} else {
-				if (ctx.add) { ctx.addNG++; } else { ctx.subNG++; }
-				$(this).addClass('ng');
+				btn.addClass('ng');
 				$("#ng").show().delay(500).fadeOut(100);
 				$("#q").css('background', 'red');
 				setTimeout(function() { $("#q").css('background', ''); }, 500);
 			}
-			updateCount();
 		});
 
 		$(window).on('resize', resize);
 		resize();
 		initQuiz();
-		newQuiz();
+		initMenu();
 	}
 
 	function resize() {
@@ -59,7 +51,7 @@ var ctx = {
 		});
 
 		var m = Math.min(w, h) * .5;
-		$("#ok, #ng").css({
+		$("#ok, #ng, #done").css({
 			top: ((h - m) / 2) + "px",
 			width: w + "px",
 			fontSize: m + "px"
@@ -70,36 +62,68 @@ var ctx = {
 		for (var x = 1; x <= 10; x++) {
 			for (var y = 1; y <= 10; y++) {
 				if (x + y <= 10) {
-					ctx.addAll.push([x, y, x + y]);
+					ctx.q.add1.push([x, y, x + y]);
+				} else {
+					if (x != 10 && y != 10) {
+						ctx.q.add2.push([x, y, x + y]);
+						ctx.q.sub2.push([x + y, y, x]);
+					}
 				}
 				if (x - y >= 1) {
-					ctx.subAll.push([x, y, x - y]);
+					ctx.q.sub1.push([x, y, x - y]);
 				}
 			}
 		}
 	};
 
+	function initMenu() {
+		$("div#select a").click(function() {
+			ctx.qid = this.id;
+			newQuiz();
+		});
+		$("div#qa header i").click(function() {
+			showMenu();
+		});
+	}
+
+	function showMenu() {
+		$("#select").show();
+		$("#qa, #done").hide();
+	}
+
 	function newQuiz() {
 		$("#a button").removeClass('ng');
+		$("#select").hide();
+		$("#qa").show();
 
-		ctx.curAll = (ctx.add ? ctx.addAll : ctx.subAll);
-		if (ctx.curAll.length == 0) {
-			$("#q").text("🎉");
+		// count
+		$("#qa header .count").text(ctx.done[ctx.qid]);
+		var a = $("#a");
+		a.children().remove();
+
+		var cur = ctx.q[ctx.qid];
+		if (cur.length == 0) {
+			$("#q").hide();
+			$("#done").show();
 			ctx.curQ = null;
 			return;
 		}
 
-		ctx.curQ = ctx.curAll[Math.floor(Math.random() * ctx.curAll.length)];
-		$("#q").text(ctx.curQ[0] +
-			(ctx.add ? "＋" : "－") +
-			ctx.curQ[1]);
-	}
+		// init answers
+		for (var i = 1; i <= 10; i++) {
+			$("<button>")
+				.text(i + (ctx.qid === 'add2' ? 10 : 0))
+				.appendTo(a);
+		}
 
-	function updateCount() {
-		$("#addOK").text(ctx.addOK);
-		$("#addNG").text(ctx.addNG);
-		$("#subOK").text(ctx.subOK);
-		$("#subNG").text(ctx.subNG);
+		$("#q").show();
+		$("#done").hide();
+		resize();
+
+		ctx.curQ = cur[Math.floor(Math.random() * cur.length)];
+		$("#q span").text(ctx.curQ[0] +
+			(ctx.qid.charAt(0) === 'a' ? " + " : " - ") +
+			ctx.curQ[1]);
 	}
 
 	init();
