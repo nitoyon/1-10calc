@@ -24,19 +24,17 @@ button:focus {
   outline: 0;
 }
 div#select {
-  margin: 2em auto 0 2em;
-  width: 80%;
-  display: block;
 }
 
 div#select h1 {
   font-size: 1.5em;
+  margin: 1em 1em 1em 1em;
 }
 
-div#select a {
+div#select section a {
   display: block;
   position: relative;
-  margin: 0 1em 1em 0;
+  margin: .5em 1em;
   padding: 1em;
   text-decoration: none;
   border: 2px solid #9999cc;
@@ -55,17 +53,61 @@ div#select span.done {
 }
 
 @media (min-width: 560px) {
-  div#select a { width: 35%; }
+  div#select section a { width: 35%; }
 }
 
-div#select a h2 {
+div#select section a h2 {
   margin: 0;
   padding: 0;
   font-size: 1.2em;
 }
 
-div#select ul li:hover {
-  background: #9999cc;
+div#select footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background: #ccc;
+}
+
+div#select footer button#stat {
+  padding: 5px 20px;
+  height: 30px;
+}
+
+div#select footer a {
+  display: inline-block;
+  padding: 5px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+div#select footer a#showstat {
+  font-size: 1em;
+  width: auto;
+  background: #666;
+  color: white;
+}
+
+div#select footer a:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook-f {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-github {
+  background: black;
   color: white;
 }
 
@@ -73,11 +115,14 @@ div#qa {
   display: none;
 }
 
-div#qa header {
+div.page header {
   background: #9999cc;
+  z-index: 4;
+  position: fixed;
+  width: 100%;
 }
 
-div#qa header i {
+div.page header i.back {
   padding: 10px;
   background: #666666;
   color: white;
@@ -86,7 +131,7 @@ div#qa header i {
   float: left;
 }
 
-div#qa header div {
+div.page header div {
   color: white;
   height: 30px;
   text-align: center;
@@ -97,7 +142,7 @@ div#qa header div {
 div#q {
   font-size: 3em;
   text-align: center;
-  padding: .5em;
+  padding: 45px .5em .2em .5em;
 }
 
 #a {
@@ -111,6 +156,75 @@ div#q {
 }
 #a button.ng {
 	background: #666;
+}
+
+#stat {
+  display: none;
+}
+
+#stat section {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+#stat section h2 {
+  margin: 80px 1em 0 1em;
+}
+
+#stat section table {
+  margin: 0;
+  margin-top: 40px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#stat section table tr td {
+  padding: .2em 0;
+}
+
+#stat section table tr:nth-child(even) {
+  background: #eeeeee;
+}
+
+#stat section table td {
+  vertical-align: top;
+}
+
+#stat section td.q {
+  font-weight: bold;
+  white-space: nowrap;
+  width: 4em;
+  padding-left: 1em;
+}
+
+#stat section td.ans {
+  width: 5em;
+}
+
+#stat section td.time {
+  color: #666;
+  font-size: .8em;
+  padding-right: 1em;
+  text-align: right;
+  width: 4em;
+}
+
+#stat section td span.ok:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  color: #228B22;
+  padding: 0 .2em 0 1em;
+}
+#stat section td span.ng:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: red;
+  content: "\f071";
+  padding: 0 .2em 0 1em;
 }
 
 div#ok, div#ng, div#done {
