@@ -89,6 +89,13 @@ var ctx = {
 	function showMenu() {
 		$("#select").show();
 		$("#qa, #done").hide();
+
+		$("#select a").each(function(i, el) {
+			var done = ctx.done[el.id];
+			if (done !== 0) {
+				$(this).find(".done").text(done + "もん");
+			}
+		});
 	}
 
 	function newQuiz() {
