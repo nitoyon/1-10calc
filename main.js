@@ -59,7 +59,7 @@ var ctx = {
 			fontSize: (Math.min(bw, bh) * .6) + "px"
 		});
 
-		var m = Math.min(w, h) * .5;
+		var m = Math.min(Math.min(w, h) * .5, 250);
 		$("#ok, #ng, #done").css({
 			top: ((h - m) / 2) + "px",
 			width: w + "px",
