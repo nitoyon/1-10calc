@@ -1,5 +1,4 @@
 html, body {
-  overflow: hidden;
   width: 100%;
   height: 100%;
 	margin: 0;
@@ -23,12 +22,15 @@ button:active {
 button:focus {
   outline: 0;
 }
+
 div#select {
+  width: 100%;
+  height: 100%;
 }
 
 div#select h1 {
   font-size: 1.5em;
-  margin: 1em 1em 1em 1em;
+  padding: 1em;
 }
 
 div#select section a {
@@ -63,7 +65,7 @@ div#select section a h2 {
 }
 
 div#select footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 30px;
@@ -162,21 +164,16 @@ div#q {
   display: none;
 }
 
-#stat section {
-  position: absolute;
+#stat header {
+  position: fixed;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-}
-
-#stat section h2 {
-  margin: 80px 1em 0 1em;
+  left: 0;
 }
 
 #stat section table {
   margin: 0;
-  margin-top: 40px;
+  position: relative;
+  top: 40px;
   width: 100%;
   border-collapse: collapse;
 }
