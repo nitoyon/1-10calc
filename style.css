@@ -170,6 +170,10 @@ div#q {
   left: 0;
 }
 
+#stat section h2 {
+  padding: 80px 1em 0 1em;
+}
+
 #stat section table {
   margin: 0;
   position: relative;
