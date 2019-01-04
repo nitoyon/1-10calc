@@ -78,7 +78,6 @@ div#select footer button#stat {
 }
 
 div#select footer a {
-  display: inline-block;
   padding: 5px;
   font-size: 20px;
   width: 20px;
@@ -114,7 +113,6 @@ div#select footer a:hover {
 }
 
 div#qa {
-  display: none;
 }
 
 div.page header {
@@ -142,9 +140,17 @@ div.page header div {
 }
 
 div#q {
-  font-size: 3em;
+  font-size: 60px;
   text-align: center;
-  padding: 45px .5em .2em .5em;
+  padding: 45px .5em 10px .5em;
+}
+
+div#q.ok {
+  background: #78be20;
+}
+
+div#q.ng {
+  background: red;
 }
 
 #a {
@@ -152,16 +158,14 @@ div#q {
 }
 
 #a button {
-	margin: 0;
-	padding: 0;
-	text-align: center;
+  padding: 0;
+  text-align: center;
+  width: 33%;
+  height: calc((100% - 150px) / 4);
+  font-size: 4em;
 }
 #a button.ng {
 	background: #666;
-}
-
-#stat {
-  display: none;
 }
 
 #stat header {
@@ -213,14 +217,14 @@ div#q {
   width: 4em;
 }
 
-#stat section td span.ok:before {
+#stat section td div.ok:before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f00c";
   color: #228B22;
   padding: 0 .2em 0 1em;
 }
-#stat section td span.ng:before {
+#stat section td div.ng:before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: red;
@@ -229,7 +233,21 @@ div#q {
 }
 
 div#ok, div#ng, div#done {
-	position: absolute;
-	text-align: center;
-	display: none;
+  position: absolute;
+  margin: auto;
+  height: 180px;
+  font-size: 180px;
+  text-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.fadeout-leave-active {
+  transition: all 100ms;
+}
+
+.fadeout-leave-to {
+  opacity: 0;
 }

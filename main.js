@@ -1,183 +1,262 @@
-var ctx = {
-	qid: "",
-	curQ: null,
-	q: {add1: [], add2: [], sub1: [], sub2: []},
-	done: {add1: 0, add2: 0, sub1: 0, sub2: 0},
-	result: []
-};
+Vue.component('app-menu', {
+  props: ['categories'],
+  template: `<div id="select">
+  <h1><i class="fas fa-pencil-alt"></i> もんだいをえらんでね</h1>
+  <section>
+    <a
+      v-for="c in categories"
+      v-bind:id="c.id"
+      v-on:click="$emit('set-category', c.id)">
+      <h2>{{ c.title }}</h2>
+      <span>{{ c.example }}</span>
+      <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
+    </a>
+  </section>
+  <footer>
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a
+><a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a
+><a href="https://github.com/nitoyon/1-10calc/" class="fab fa-github"></a
+><a href="#" v-on:click.prevent="$emit('show-page', 'app-stat')"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
+  </footer>
+</div>`
+});
 
-(function() {
-	function init() {
-		$("#a").on('click', function(e) {
-			if (ctx.curQ == null) { return; }
-			if (e.target.tagName !== 'BUTTON') { return; }
-			var btn = $(e.target);
-			if (btn.hasClass('ng')) { return; }
-			var a = btn.text();
-			if (a == ctx.curQ[2]) {
-				var cur = ctx.q[ctx.qid];
-				cur.splice(cur.indexOf(ctx.curQ), 1);
-				ctx.done[ctx.qid]++;
+Vue.component('app-solve', {
+  props: {
+    'buttons': {
+      type: Array,
+      default: function() {
+        return [
+          { label: 1, ng: false },
+          { label: 2, ng: false },
+          { label: 3, ng: false },
+          { label: 4, ng: false },
+          { label: 5, ng: false },
+          { label: 6, ng: false },
+          { label: 7, ng: false },
+          { label: 8, ng: false },
+          { label: 9, ng: false },
+          { label: 10, ng: false }
+        ];
+      }
+    },
+    'category': Object,
+    'histories': Array
+  },
 
-				var res = ctx.result[ctx.result.length - 1];
-				res.end = new Date();
-				res.ans.push({num: a, ok: true});
+  mounted: function() {
+    this.newQuiz();
+  },
 
-				newQuiz();
-				if (cur.length > 0) {
-					$("#ok").show().delay(500).fadeOut(100);
-				}
-			} else {
-				var res = ctx.result[ctx.result.length - 1];
-				res.ans.push({num: a, ok: false});
+  methods: {
+    initButtons: function() {
+      var over10 = (this.category.id === 'add2' ? 11 : 1);
 
-				btn.addClass('ng');
-				$("#ng").show().delay(500).fadeOut(100);
-				$("#q").css('background', 'red');
-				setTimeout(function() { $("#q").css('background', ''); }, 500);
-			}
-		});
+      for (var i = 0; i < this.buttons.length; i++) {
+        this.buttons[i].label = i + over10;
+        this.buttons[i].ng = false;
+      }
+    },
 
-		$(window).on('resize', resize);
-		resize();
-		initQuiz();
-		initMenu();
-	}
+    newQuiz: function() {
+      this.initButtons();
 
-	function resize() {
-		var w = $("body").width();
-		var h = $("body").height();
-		var y = $("#a").position()['top'];
-		var bw = Math.floor(w / 3);
-		var bh = (h - y) / 4;
-		$("#menu button").css({
-			width: (w / 2) + "px"
-		});
-		$("#a button").css({
-			width: bw + "px",
-			height: bh + "px",
-			fontSize: (Math.min(bw, bh) * .6) + "px"
-		});
+      this.category.q = this.findQuestion();
+      if (this.category.q === null) {
+        return;
+      }
 
-		var m = Math.min(Math.min(w, h) * .5, 250);
-		$("#ok, #ng, #done").css({
-			top: ((h - m) / 2) + "px",
-			width: w + "px",
-			fontSize: m + "px"
-		});
-	};
+      var q = this.category.q;
+      var t = q[0] + this.category.sign + q[1];
+      this.histories.push({
+        q: q,
+        text: t,
+        start: new Date(),
+        end: null,
+        ans: []
+      });
+    },
 
-	function initQuiz() {
-		for (var x = 1; x <= 10; x++) {
-			for (var y = 1; y <= 10; y++) {
-				if (x + y <= 10) {
-					ctx.q.add1.push([x, y, x + y]);
-				} else {
-					if (x != 10 && y != 10) {
-						ctx.q.add2.push([x, y, x + y]);
-						ctx.q.sub2.push([x + y, y, x]);
-					}
-				}
-				if (x - y >= 1) {
-					ctx.q.sub1.push([x, y, x - y]);
-				}
-			}
-		}
-	};
+    answer: function(btn) {
+      var clicked = btn.label;
+      var ans = this.category.q[2];
 
-	function initMenu() {
-		$("div#select section a").click(function() {
-			ctx.qid = this.id;
-			newQuiz();
-		});
-		$("a#showstat").click(function() {
-			showStat();
-		});
-		$("header .back").click(function() {
-			showMenu();
-		});
-	}
+      var self = this;
+      var h = this.histories[this.histories.length - 1];
+      if (ans !== clicked) {
+        h.ans.push({num: clicked, ok: false});
+        btn.ng = true;
+        this.category.isNG = true;
+        setTimeout(function() {
+          self.category.isNG = false;
+        }, 500);
+      } else {
+        h.end = new Date();
+        h.ans.push({num: ans, ok: true});
+        var all = this.category.questions;
+        all.splice(all.indexOf(this.category.q), 1);
 
-	function showMenu() {
-		$("#select").show();
-		$("#qa, #stat, #done").hide();
+        this.category.isOK = true;
+        setTimeout(function() {
+          self.category.isOK = false;
+          self.category.done++;
+          self.newQuiz();
+        }, 500);
+      }
+    },
 
-		$("#select a").each(function(i, el) {
-			var done = ctx.done[el.id];
-			if (done !== 0) {
-				$(this).find(".done").text(done + "もん");
-			}
-		});
-	}
+    findQuestion: function() {
+      var all = this.category.questions;
+      if (all.length === 0) {
+        return null;
+      }
 
-	function showStat() {
-		$("#select, #qa, #done").hide();
-		$("#stat").show();
+      return all[Math.floor(Math.random() * all.length)];
+    }
+  },
+  template: `
+<div id="qa" class="page">
+  <header>
+    <i class="back fas fa-arrow-left" v-on:click="$emit('show-page', 'app-menu')"></i>
+    <div>{{category.done}} もんせいかい</div>
+  </header>
+  <div id="q" v-if="category.q" v-bind:class="{ok: category.isOK, ng: category.isNG}"><span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span> = <i class="fas fa-question"></i></div>
+  <div id="a" v-if="category.q">
+    <button v-for="b in buttons" v-on:click="answer(b)" v-bind:class="{ng: b.ng}">{{ b.label }}</button>
+  </div>
+  <transition name="fadeout"><div id="ok" v-if="category.isOK">🙆</div></transition>
+  <transition name="fadeout"><div id="ng" v-if="category.isNG">😢</div></transition>
+  <div id="done" v-if="!category.q">🎉</div>
+</div>
+`
+});
 
-		var section = $("#stat section");
-		section.children().remove();
-		if (ctx.result.length === 0) {
-			$("<h2>").text("まだ 1 問も解いていません。").appendTo(section);
-			return;
-		}
+Vue.component('app-stat', {
+  props: ['histories'],
+  template: `
+<div id="stat" class="page">
+  <header>
+    <i class="back fas fa-arrow-left" v-on:click="$emit('show-page', 'app-menu')"></i>
+    <div><i class="fas fa-chart-bar"></i> 勉強結果</div>
+  </header>
+  <section>
+    <h2 v-if="histories.length == 0">まだ 1 問も解いていません</h2>
+    <table v-if="histories.length">
+      <tr v-for="h in histories">
+        <td class="q">{{ h.text}}</td>
+        <td class="ans">
+          <div v-for="a in h.ans" v-bind:class="{ok: a.ok, ng: !a.ok}">{{a.num}}</div>
+        </td>
+        <td class="time">
+          {{ h.end ? Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10 + " 秒" : "----"}}
+        </td>
+      </tr>
+    </table>
+  </section>
+</div>
+`
+});
 
-		var table = $("<table>").appendTo(section);
-		$.each(ctx.result, function(i, item) {
-			var tr = $("<tr>").appendTo(table);
-			$("<td>").addClass("q").text(item.q).appendTo(tr);
-			var ans = $("<td>").addClass("ans").appendTo(tr);
-			$.each(item.ans, function(j, a) {
-				$("<span>").addClass(a.ok ? "ok" : "ng").text(a.num).appendTo(ans);
-				$("<br>").appendTo(ans);
-			});
-			$("<td>").addClass("time")
-				.text(item.end ?
-					(Math.floor((item.end.getTime() - item.start.getTime()) / 100) / 10) + " 秒" : "----")
-				.appendTo(tr);
-		});
-	}
+var app = new Vue({
+  el: '#app',
+  template: `
+    <div id="app">
+      <app-menu
+        v-if="currentPage == 'app-menu'"
+        v-bind:categories="categories"
+        v-on:show-page="showPage($event)"
+        v-on:set-category="setCategory($event)">
+      </app-menu>
+      <app-solve
+        v-if="currentPage == 'app-solve'"
+        v-bind:category="selectedCategory"
+        v-bind:histories="histories"
+        v-on:show-page="showPage($event)">
+      </app-solve>
+      <app-stat
+        v-if="currentPage == 'app-stat'"
+        v-bind:histories="histories"
+        v-on:show-page="showPage($event)"/>
+      </app-stat>
+    </div>`,
+  data: {
+    currentPage: 'app-menu',
+    selectedCategory: null,
+    histories: [],
+    categories: [
+      {
+        id: 'add1',
+        title: 'たしざん 1',
+        example: '3 + 6',
+        done: 0,
+        sign: '+',
+        isOK: false, isNG: false,
+        q: null,
+        questions: []
+      },
+      {
+        id: 'sub1',
+        title: 'ひきざん 1',
+        example: '8 - 3',
+        done: 0,
+        sign: '-',
+        isOK: false, isNG: false,
+        q: null,
+        questions: []
+      },
+      {
+        id: 'add2',
+        title: 'たしざん 2',
+        example: '7 + 5',
+        done: 0,
+        sign: '+',
+        isOK: false, isNG: false,
+        q: null,
+        questions: []
+      },
+      {
+        id: 'sub2',
+        title: 'ひきざん 1',
+        example: '13 - 7',
+        done: 0,
+        sign: '-',
+        isOK: false, isNG: false,
+        q: null,
+        questions: []
+      }
+    ]
+  },
 
-	function newQuiz() {
-		$("#a button").removeClass('ng');
-		$("#select").hide();
-		$("#qa").show();
+  created: function() {
+    for (var x = 1; x <= 10; x++) {
+      for (var y = 1; y <= 10; y++) {
+        if (x + y <= 10) {
+          this.categories[0].questions.push([x, y, x + y]);
+        } else {
+          if (x != 10 && y != 10) {
+            this.categories[2].questions.push([x, y, x + y]);
+            this.categories[3].questions.push([x + y, y, x]);
+          }
+        }
+        if (x - y >= 1) {
+          this.categories[1].questions.push([x, y, x - y]);
+        }
+      }
+    }
+  },
 
-		// count
-		$("#qa header .count").text(ctx.done[ctx.qid]);
-		var a = $("#a");
-		a.children().remove();
+  methods: {
+    showPage: function(name) {
+      this.currentPage = name;
+    },
 
-		var cur = ctx.q[ctx.qid];
-		if (cur.length == 0) {
-			$("#q").hide();
-			$("#done").show();
-			ctx.curQ = null;
-			return;
-		}
-
-		// init answers
-		for (var i = 1; i <= 10; i++) {
-			$("<button>")
-				.text(i + (ctx.qid === 'add2' ? 10 : 0))
-				.appendTo(a);
-		}
-
-		$("#q").show();
-		$("#done").hide();
-		resize();
-
-		ctx.curQ = cur[Math.floor(Math.random() * cur.length)];
-		var q = ctx.curQ[0] +
-			(ctx.qid.charAt(0) === 'a' ? " + " : " - ") +
-			ctx.curQ[1];
-		$("#q span").text(q);
-		ctx.result.push({
-			q: q,
-			start: new Date(),
-			end: null,
-			ans: [],
-		});
-	}
-
-	init();
-})();
+    setCategory: function(id) {
+      this.selectedCategory = this.categories.find(function(c) { return c.id === id; });
+      if (this.selectedCategory === undefined) {
+        this.showPage('app-menu');
+      } else {
+        this.showPage('app-solve');
+      }
+    }
+  }
+});
