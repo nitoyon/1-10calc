@@ -297,3 +297,8 @@ var app = new Vue({
   }
 });
 
+window.addEventListener('load', function() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+});

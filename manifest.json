@@ -1,0 +1,12 @@
+{
+  "lang": "ja",
+  "name": "けいさんカード",
+  "short_name": "けいさんカード",
+  "icons": [{
+        "src": "/apple-touch-icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }],
+  "start_url": "https://nitoyon.github.io/1-10calc/",
+  "display": "standalone"
+}
