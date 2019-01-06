@@ -1,5 +1,11 @@
 Vue.component('app-menu', {
   props: ['categories'],
+  data: function() {
+    // show add me popup only once (iOS & Safari app)
+    var count = localStorage.getItem('add-me-closed');
+    var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') !== -1;
+    return { showAddMe: count === null && isSafari };
+  },
   template: `<div id="select">
   <h1><i class="fas fa-pencil-alt"></i> もんだいをえらんでね</h1>
   <section>
@@ -12,13 +18,28 @@ Vue.component('app-menu', {
       <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
     </a>
   </section>
+
+  <add-me-to-home
+    v-if="showAddMe"
+    v-on:click="hideAddMe()">
+  </add-me-to-home>
+
   <footer>
 <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a
 ><a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a
 ><a href="https://github.com/nitoyon/1-10calc/" class="fab fa-github"></a
 ><a href="#" v-on:click.prevent="$emit('show-page', 'app-stat')"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
   </footer>
-</div>`
+</div>`,
+
+  methods: {
+    hideAddMe: function() {
+      var count = localStorage.getItem('add-me-closed');
+      count = (count == null ? 1 : count + 1);
+      localStorage.setItem('add-me-closed', count);
+      this.showAddMe = false;
+    }
+  }
 });
 
 Vue.component('app-solve', {
@@ -157,6 +178,21 @@ Vue.component('app-stat', {
 `
 });
 
+Vue.component('add-me-to-home', {
+  template: `
+    <div id="add-me-to-home" v-on:click="$emit('click')">
+      <span class="fas fa-window-close"></span>
+      このアプリをホーム画面から開けるようにしましょう。<br>
+      <svg height="20px" id="Layer_1" version="1.1" viewBox="0 0 50 50" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<polyline fill="none" points="17,10 25,2 33,10   " stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+<line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="25" x2="25" y1="32" y2="2.333"/>
+<rect fill="none" height="50" width="50"/>
+<path d="M17,17H8v32h34V17h-9" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+</svg> をタップして <i class="fas fa-plus-square"></i> <strong>ホーム画面に追加</strong> をタップするだけです。
+    </div>
+  `
+});
+
 var app = new Vue({
   el: '#app',
   template: `
@@ -260,3 +296,4 @@ var app = new Vue({
     }
   }
 });
+

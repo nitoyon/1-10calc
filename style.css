@@ -251,3 +251,43 @@ div#ok, div#ng, div#done {
 .fadeout-leave-to {
   opacity: 0;
 }
+
+#add-me-to-home {
+  font-size: 90%;
+  position: fixed;
+  bottom: 15px;
+  border-radius: .5em;
+  margin: .5em;
+  padding: 10px 24px .5em 84px;
+  height: auto;
+  z-index: 9;
+  background: url('apple-touch-icon.png') no-repeat;
+  background-size: 64px;
+  background-position: 10px 10px;
+  background-color: #eedddd;
+  animation: vertical .8s ease-in-out infinite alternate;
+}
+
+#add-me-to-home > span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 15px;
+  color: white;
+}
+
+
+#add-me-to-home::after {
+  position: absolute;
+  top: 99%;
+  left: 50%;
+  margin-left: -15px;
+  content: ' ';
+  border: 15px solid transparent;
+  border-top-color: #eedddd;
+}
+
+@keyframes vertical {
+    0% { transform:translateY(-3px); }
+  100% { transform:translateY(  0px); }
+}
