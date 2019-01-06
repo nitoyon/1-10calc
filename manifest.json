@@ -7,6 +7,6 @@
         "sizes": "144x144",
         "type": "image/png"
       }],
-  "start_url": "https://nitoyon.github.io/1-10calc/",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone"
 }
