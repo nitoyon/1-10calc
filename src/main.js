@@ -1,54 +1,3 @@
-import AddMeToHome from './components/AddMeToHome.vue'
-
-Vue.component('app-menu', {
-  props: ['categories'],
-  components: { AddMeToHome },
-  data: function() {
-    // show add me popup only once (iOS & Safari app)
-    var count = localStorage.getItem('add-me-closed');
-    var home = location.search.indexOf('homescreen') !== -1;
-    var standalone = window.navigator.standalone,
-      userAgent = window.navigator.userAgent.toLowerCase(),
-      safari = /safari/.test(userAgent),
-      ios = /iphone|ipod|ipad/.test(userAgent);
-    return { showAddMe: count === null && !home && standalone && safari && ios };
-  },
-  template: `<div id="select">
-  <h1><i class="fas fa-pencil-alt"></i> もんだいをえらんでね</h1>
-  <section>
-    <a
-      v-for="c in categories"
-      v-bind:id="c.id"
-      v-on:click="$emit('set-category', c.id)">
-      <h2>{{ c.title }}</h2>
-      <span>{{ c.example }}</span>
-      <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
-    </a>
-  </section>
-
-  <AddMeToHome
-    v-if="showAddMe"
-    v-on:click="hideAddMe()">
-  </AddMeToHome>
-
-  <footer>
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a
-><a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a
-><a href="https://github.com/nitoyon/1-10calc/" class="fab fa-github"></a
-><a href="#" v-on:click.prevent="$emit('show-page', 'app-stat')"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
-  </footer>
-</div>`,
-
-  methods: {
-    hideAddMe: function() {
-      var count = localStorage.getItem('add-me-closed');
-      count = (count == null ? 1 : count + 1);
-      localStorage.setItem('add-me-closed', count);
-      this.showAddMe = false;
-    }
-  }
-});
-
 Vue.component('app-solve', {
   props: {
     'buttons': {
@@ -159,19 +108,20 @@ Vue.component('app-solve', {
 `
 });
 
+import Menu from './components/Menu.vue'
 import Stat from './components/Stat.vue'
 
 new Vue({
   el: '#app',
-  components: { Stat },
+  components: { Menu, Stat },
   template: `
     <div id="app">
-      <app-menu
+      <Menu
         v-if="currentPage == 'app-menu'"
         v-bind:categories="categories"
         v-on:show-page="showPage($event)"
         v-on:set-category="setCategory($event)">
-      </app-menu>
+      </Menu>
       <app-solve
         v-if="currentPage == 'app-solve'"
         v-bind:category="selectedCategory"
