@@ -159,34 +159,11 @@ Vue.component('app-solve', {
 `
 });
 
-Vue.component('app-stat', {
-  props: ['histories'],
-  template: `
-<div id="stat" class="page">
-  <header>
-    <i class="back fas fa-arrow-left" v-on:click="$emit('show-page', 'app-menu')"></i>
-    <div><i class="fas fa-chart-bar"></i> 勉強結果</div>
-  </header>
-  <section>
-    <h2 v-if="histories.length == 0">まだ 1 問も解いていません</h2>
-    <table v-if="histories.length">
-      <tr v-for="h in histories">
-        <td class="q">{{ h.text}}</td>
-        <td class="ans">
-          <div v-for="a in h.ans" v-bind:class="{ok: a.ok, ng: !a.ok}">{{a.num}}</div>
-        </td>
-        <td class="time">
-          {{ h.end ? Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10 + " 秒" : "----"}}
-        </td>
-      </tr>
-    </table>
-  </section>
-</div>
-`
-});
+import Stat from './components/Stat.vue'
 
 new Vue({
   el: '#app',
+  components: { Stat },
   template: `
     <div id="app">
       <app-menu
@@ -201,11 +178,11 @@ new Vue({
         v-bind:histories="histories"
         v-on:show-page="showPage($event)">
       </app-solve>
-      <app-stat
+      <Stat
         v-if="currentPage == 'app-stat'"
         v-bind:histories="histories"
         v-on:show-page="showPage($event)"/>
-      </app-stat>
+      </Stat>
     </div>`,
   data: {
     currentPage: 'app-menu',
