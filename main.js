@@ -4,8 +4,11 @@ Vue.component('app-menu', {
     // show add me popup only once (iOS & Safari app)
     var count = localStorage.getItem('add-me-closed');
     var home = location.search.indexOf('homescreen') !== -1;
-    var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') !== -1;
-    return { showAddMe: count === null && !home && isSafari };
+    var standalone = window.navigator.standalone,
+      userAgent = window.navigator.userAgent.toLowerCase(),
+      safari = /safari/.test(userAgent),
+      ios = /iphone|ipod|ipad/.test(userAgent);
+    return { showAddMe: count === null && !home && standalone && safari && ios };
   },
   template: `<div id="select">
   <h1><i class="fas fa-pencil-alt"></i> もんだいをえらんでね</h1>
