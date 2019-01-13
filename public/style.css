@@ -9,23 +9,6 @@ body {
   font-family: -apple-system;
 }
 
-button {
-  border: 1px solid black;
-  background: #ccc;
-}
-
-button:active {
-  border: 1px solid black;
-  background: #fff;
-}
-
-button:focus {
-  outline: 0;
-}
-
-div#qa {
-}
-
 div.page header {
   background: #9999cc;
   z-index: 4;
@@ -49,53 +32,3 @@ div.page header div {
   padding-top: 5px;
   font-size: 20px;
 }
-
-div#q {
-  font-size: 60px;
-  text-align: center;
-  padding: 45px .5em 10px .5em;
-}
-
-div#q.ok {
-  background: #78be20;
-}
-
-div#q.ng {
-  background: red;
-}
-
-#a {
-  text-align: center;
-}
-
-#a button {
-  padding: 0;
-  text-align: center;
-  width: 33%;
-  height: calc((100% - 150px) / 4);
-  font-size: 4em;
-}
-#a button.ng {
-	background: #666;
-}
-
-div#ok, div#ng, div#done {
-  position: absolute;
-  margin: auto;
-  height: 180px;
-  font-size: 180px;
-  text-align: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.fadeout-leave-active {
-  transition: all 100ms;
-}
-
-.fadeout-leave-to {
-  opacity: 0;
-}
-
