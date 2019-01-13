@@ -3,7 +3,7 @@
   "name": "けいさんカード",
   "short_name": "けいさんカード",
   "icons": [{
-        "src": "/apple-touch-icon.png",
+        "src": "./apple-touch-icon.png",
         "sizes": "144x144",
         "type": "image/png"
       }],
