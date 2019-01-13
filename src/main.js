@@ -197,7 +197,7 @@ Vue.component('add-me-to-home', {
   `
 });
 
-var app = new Vue({
+new Vue({
   el: '#app',
   template: `
     <div id="app">
