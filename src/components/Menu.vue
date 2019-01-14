@@ -12,12 +12,9 @@
         <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
       </a>
     </section>
-  
-    <AddMeToHome
-      v-if="showAddMe"
-      @click="hideAddMe()">
-    </AddMeToHome>
-  
+
+    <AddMeToHome/>
+
     <footer>
       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a>
       <a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a>
@@ -34,25 +31,6 @@ export default {
   name: 'Stat',
   props: ['categories'],
   components: { AddMeToHome },
-  data: () => {
-    // show add me popup only once (iOS & Safari app)
-    var count = localStorage.getItem('add-me-closed');
-    var home = location.search.indexOf('homescreen') !== -1;
-    var standalone = window.navigator.standalone,
-      userAgent = window.navigator.userAgent.toLowerCase(),
-      safari = /safari/.test(userAgent),
-      ios = /iphone|ipod|ipad/.test(userAgent);
-    return { showAddMe: count === null && !home && standalone && safari && ios };
-  },
-
-  methods: {
-    hideAddMe: function() {
-      var count = localStorage.getItem('add-me-closed');
-      count = (count == null ? 1 : count + 1);
-      localStorage.setItem('add-me-closed', count);
-      this.showAddMe = false;
-    },
-  },
 }
 </script>
 
