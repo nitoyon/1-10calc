@@ -1,12 +1,12 @@
 <template>
   <div id="qa" class="page">
     <header>
-      <i class="back fas fa-arrow-left" v-on:click="$emit('show-page', 'app-menu')"></i>
+      <i class="back fas fa-arrow-left" @click="$emit('show-page', 'app-menu')"></i>
       <div>{{category.done}} もんせいかい</div>
     </header>
-    <div id="q" v-if="category.q" v-bind:class="{ok: category.isOK, ng: category.isNG}"><span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span> = <i class="fas fa-question"></i></div>
+    <div id="q" v-if="category.q" :class="{ok: category.isOK, ng: category.isNG}"><span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span> = <i class="fas fa-question"></i></div>
     <div id="a" v-if="category.q">
-      <button v-for="b in buttons" v-bind:key="b.label" v-on:click="answer(b)" v-bind:class="{ng: b.ng}">{{ b.label }}</button>
+      <button v-for="b in buttons" :key="b.label" @click="answer(b)" :class="{ng: b.ng}">{{ b.label }}</button>
     </div>
     <transition name="fadeout"><div id="ok" v-if="category.isOK">🙆</div></transition>
     <transition name="fadeout"><div id="ng" v-if="category.isNG">😢</div></transition>

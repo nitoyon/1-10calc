@@ -2,20 +2,20 @@
   <div id="app">
     <Menu
       v-if="currentPage == 'app-menu'"
-      v-bind:categories="categories"
-      v-on:show-page="showPage($event)"
-      v-on:set-category="setCategory($event)">
+      :categories="categories"
+      @show-page="showPage($event)"
+      @set-category="setCategory($event)">
     </Menu>
     <Solve
       v-if="currentPage == 'app-solve'"
-      v-bind:category="selectedCategory"
-      v-bind:histories="histories"
-      v-on:show-page="showPage($event)">
+      :category="selectedCategory"
+      :histories="histories"
+      @show-page="showPage($event)">
     </Solve>
     <Stat
       v-if="currentPage == 'app-stat'"
-      v-bind:histories="histories"
-      v-on:show-page="showPage($event)">
+      :histories="histories"
+      @show-page="showPage($event)">
     </Stat>
   </div>
 </template>

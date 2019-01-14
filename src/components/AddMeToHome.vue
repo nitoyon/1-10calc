@@ -1,5 +1,5 @@
 <template>
-  <div id="add-me-to-home" v-on:click="$emit('click')">
+  <div id="add-me-to-home" @click="$emit('click')">
     <span class="fas fa-window-close"></span>
     このアプリをホーム画面から開けるようにしましょう。<br>
     <svg height="20px" id="Layer_1" version="1.1" viewBox="0 0 50 50" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
