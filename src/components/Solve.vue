@@ -6,7 +6,7 @@
     </header>
     <div id="q" v-if="category.q" v-bind:class="{ok: category.isOK, ng: category.isNG}"><span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span> = <i class="fas fa-question"></i></div>
     <div id="a" v-if="category.q">
-      <button v-for="b in buttons" v-on:click="answer(b)" v-bind:class="{ng: b.ng}">{{ b.label }}</button>
+      <button v-for="b in buttons" v-bind:key="b.label" v-on:click="answer(b)" v-bind:class="{ng: b.ng}">{{ b.label }}</button>
     </div>
     <transition name="fadeout"><div id="ok" v-if="category.isOK">🙆</div></transition>
     <transition name="fadeout"><div id="ng" v-if="category.isNG">😢</div></transition>

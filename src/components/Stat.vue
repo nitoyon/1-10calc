@@ -7,10 +7,10 @@
     <section>
       <h2 v-if="histories.length == 0">まだ 1 問も解いていません</h2>
       <table v-if="histories.length">
-        <tr v-for="h in histories">
+        <tr v-for="(h, index) in histories" v-bind:key="index">
           <td class="q">{{ h.text}}</td>
           <td class="ans">
-            <div v-for="a in h.ans" v-bind:class="{ok: a.ok, ng: !a.ok}">{{a.num}}</div>
+            <div v-for="(a, i) in h.ans" v-bind:key="i" v-bind:class="{ok: a.ok, ng: !a.ok}">{{a.num}}</div>
           </td>
           <td class="time">
             {{ h.end ? Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10 + " 秒" : "----"}}

@@ -4,6 +4,7 @@
     <section>
       <a
         v-for="c in categories"
+        v-bind:key="c.id"
         v-bind:id="c.id"
         v-on:click="$emit('set-category', c.id)">
         <h2>{{ c.title }}</h2>
