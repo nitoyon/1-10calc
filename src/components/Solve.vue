@@ -17,24 +17,21 @@
 <script>
 export default {
   name: 'Solve',
+  data: () => ({
+    buttons: [
+      { label: 1, ng: false },
+      { label: 2, ng: false },
+      { label: 3, ng: false },
+      { label: 4, ng: false },
+      { label: 5, ng: false },
+      { label: 6, ng: false },
+      { label: 7, ng: false },
+      { label: 8, ng: false },
+      { label: 9, ng: false },
+      { label: 10, ng: false },
+    ],
+  }),
   props: {
-    'buttons': {
-      type: Array,
-      default: function() {
-        return [
-          { label: 1, ng: false },
-          { label: 2, ng: false },
-          { label: 3, ng: false },
-          { label: 4, ng: false },
-          { label: 5, ng: false },
-          { label: 6, ng: false },
-          { label: 7, ng: false },
-          { label: 8, ng: false },
-          { label: 9, ng: false },
-          { label: 10, ng: false }
-        ];
-      }
-    },
     'category': Object,
     'histories': Array
   },
