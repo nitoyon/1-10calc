@@ -129,7 +129,7 @@ div.page header {
   width: 100%;
 }
 
-div.page header i.back {
+div.page header .back {
   padding: 10px;
   background: #666666;
   color: white;

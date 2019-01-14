@@ -1,6 +1,6 @@
 <template>
   <div id="select">
-    <h1><i class="fas fa-pencil-alt"></i> もんだいをえらんでね</h1>
+    <h1><font-awesome-icon icon="pencil-alt"/> もんだいをえらんでね</h1>
     <section>
       <a
         v-for="c in categories"
@@ -16,10 +16,21 @@
     <AddMeToHome/>
 
     <footer>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a>
-      <a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a>
-      <a href="https://github.com/nitoyon/1-10calc/" class="fab fa-github"></a>
-      <a href="#" @click.prevent="$emit('show-page', 'app-stat')" id="showstat"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
+      <a class="share-facebook"
+        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F">
+        <font-awesome-icon :icon="['fab', 'facebook-f']" size="lg"/>
+      </a>
+      <a class="share-twitter"
+        href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F">
+        <font-awesome-icon :icon="['fab', 'twitter']" size="lg"/>
+      </a>
+      <a class="share-github"
+        href="https://github.com/nitoyon/1-10calc/">
+        <font-awesome-icon :icon="['fab', 'github']" size="lg"/>
+      </a>
+      <a href="#" @click.prevent="$emit('show-page', 'app-stat')" id="showstat">
+        <font-awesome-icon icon="chart-bar"/> 勉強結果を見る
+      </a>
     </footer>
   </div>
 </template>
@@ -85,12 +96,11 @@ div#select footer {
 }
 
 div#select footer a {
-  padding: 5px;
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 27px;
+  padding-top: 3px;
   text-align: center;
-  text-decoration: none;
+  display: inline-block;
 }
 
 div#select footer a#showstat {
@@ -98,23 +108,27 @@ div#select footer a#showstat {
   width: auto;
   background: #666;
   color: white;
+  text-decoration: none;
+  display: inline-block;
+  padding-left: .4em;
+  padding-right: .4em;
 }
 
 div#select footer a:hover {
   opacity: 0.7;
 }
 
-.fa-facebook-f {
+.share-facebook {
   background: #3B5998;
   color: white;
 }
 
-.fa-twitter {
+.share-twitter {
   background: #55ACEE;
   color: white;
 }
 
-.fa-github {
+.share-github {
   background: black;
   color: white;
 }

@@ -1,8 +1,10 @@
 <template>
   <div id="stat" class="page">
     <header>
-      <i class="back fas fa-arrow-left" @click="$emit('show-page', 'app-menu')"></i>
-      <div><i class="fas fa-chart-bar"></i> 勉強結果</div>
+      <span class="back" @click="$emit('show-page', 'app-menu')">
+        <font-awesome-icon icon="arrow-left" size="lg"/>
+      </span>
+      <div><font-awesome-icon icon="chart-bar"/> 勉強結果</div>
     </header>
     <section>
       <h2 v-if="histories.length == 0">まだ 1 問も解いていません</h2>
@@ -10,7 +12,11 @@
         <tr v-for="(h, index) in histories" :key="index">
           <td class="q">{{ h.text}}</td>
           <td class="ans">
-            <div v-for="(a, i) in h.ans" :key="i" :class="{ok: a.ok, ng: !a.ok}">{{a.num}}</div>
+            <div v-for="(a, i) in h.ans" :key="i">
+              <font-awesome-icon icon="check" class="ok" v-if="a.ok"/>
+              <font-awesome-icon icon="exclamation-triangle" class="ng" v-if="!a.ok"/>
+              {{a.num}}
+            </div>
           </td>
           <td class="time">
             {{ h.end ? Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10 + " 秒" : "----"}}
@@ -78,19 +84,11 @@ export default {
   width: 4em;
 }
 
-#stat section td div.ok:before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f00c";
+#stat section td div .ok {
   color: #228B22;
-  padding: 0 .2em 0 1em;
 }
-#stat section td div.ng:before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+#stat section td div .ng {
   color: red;
-  content: "\f071";
-  padding: 0 .2em 0 1em;
 }
 
 </style>

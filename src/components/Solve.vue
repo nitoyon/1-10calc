@@ -1,10 +1,16 @@
 <template>
   <div id="qa" class="page">
     <header>
-      <i class="back fas fa-arrow-left" @click="$emit('show-page', 'app-menu')"></i>
+      <span class="back" @click="$emit('show-page', 'app-menu')">
+        <font-awesome-icon icon="arrow-left" size="lg"/>
+      </span>
       <div>{{category.done}} もんせいかい</div>
     </header>
-    <div id="q" v-if="category.q" :class="{ok: category.isOK, ng: category.isNG}"><span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span> = <i class="fas fa-question"></i></div>
+    <div id="q" v-if="category.q" :class="{ok: category.isOK, ng: category.isNG}">
+      <span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span>
+      =
+      <font-awesome-icon icon="question"/>
+    </div>
     <div id="a" v-if="category.q">
       <button v-for="b in buttons" :key="b.label" @click="answer(b)" :class="{ng: b.ng}">{{ b.label }}</button>
     </div>
