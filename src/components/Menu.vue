@@ -22,7 +22,7 @@
       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-facebook-f"></a>
       <a href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F" class="fab fa-twitter"></a>
       <a href="https://github.com/nitoyon/1-10calc/" class="fab fa-github"></a>
-      <a href="#" @click.prevent="$emit('show-page', 'app-stat')"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
+      <a href="#" @click.prevent="$emit('show-page', 'app-stat')" id="showstat"><i class="fas fa-chart-bar"></i> 勉強結果を見る</a>
     </footer>
   </div>
 </template>
@@ -104,11 +104,6 @@ div#select footer {
   width: 100%;
   height: 30px;
   background: #ccc;
-}
-
-div#select footer button#stat {
-  padding: 5px 20px;
-  height: 30px;
 }
 
 div#select footer a {
