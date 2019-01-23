@@ -256,7 +256,7 @@ var app = new Vue({
       },
       {
         id: 'sub2',
-        title: 'ひきざん 1',
+        title: 'ひきざん 2',
         example: '13 - 7',
         done: 0,
         sign: '-',
