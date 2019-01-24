@@ -62,13 +62,17 @@ div#select section a {
   margin: .5em 1em;
   padding: 1em;
   text-decoration: none;
-  border: 2px solid #9999cc;
   border-radius: 5px;
-  color: #9999cc;
+  color: white;
   cursor: pointer;
   width: 80%;
   float: left;
 }
+
+div#select section a#add1 { background: #C7243A; }
+div#select section a#sub1 { background: #EDAD0B; }
+div#select section a#add2 { background: #A4C520; }
+div#select section a#sub2 { background: #1A95B7; }
 
 div#select span.done {
   position: absolute;
