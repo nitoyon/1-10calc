@@ -1,6 +1,6 @@
 <template>
   <div id="stat" class="page">
-    <header>
+    <header class="bg-stat">
       <span class="back" @click="$emit('show-page', 'app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>

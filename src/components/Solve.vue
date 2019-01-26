@@ -1,6 +1,6 @@
 <template>
   <div id="qa" class="page">
-    <header>
+    <header :class="'bg-' + category.id">
       <span class="back" @click="$emit('show-page', 'app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>

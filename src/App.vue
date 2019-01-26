@@ -123,7 +123,6 @@ body {
 }
 
 div.page header {
-  background: #9999cc;
   z-index: 4;
   position: fixed;
   width: 100%;
@@ -131,7 +130,6 @@ div.page header {
 
 div.page header .back {
   padding: 10px;
-  background: #666666;
   color: white;
   font-size: 15px;
   cursor: pointer;
@@ -145,4 +143,10 @@ div.page header div {
   padding-top: 5px;
   font-size: 20px;
 }
+
+.bg-add1 { background: #C7243A; }
+.bg-sub1 { background: #EDAD0B; }
+.bg-add2 { background: #A4C520; }
+.bg-sub2 { background: #1A95B7; }
+.bg-stat { background: #666; }
 </style>

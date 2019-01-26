@@ -5,7 +5,7 @@
       <a
         v-for="c in categories"
         :key="c.id"
-        :id="c.id"
+        :class="'bg-' + c.id"
         @click="$emit('set-category', c.id)">
         <h2>{{ c.title }}</h2>
         <span>{{ c.example }}</span>
