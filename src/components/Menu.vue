@@ -37,7 +37,7 @@
 
 <script>
 import AddMeToHome from './AddMeToHome.vue'
-import store from '../store'
+import store from '../store.js'
 
 export default {
   name: 'Stat',
