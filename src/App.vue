@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <Menu
-      v-if="store.currentPage == 'app-menu'"
-      :categories="store.categories"
-      @show-page="showPage($event)"
-      @set-category="setCategory($event)">
+      v-if="store.currentPage == 'app-menu'">
     </Menu>
     <Solve
       v-if="store.currentPage == 'app-solve'"
@@ -38,15 +35,6 @@ export default {
     showPage: function(name) {
       this.store.currentPage = name;
     },
-
-    setCategory: function(id) {
-      this.store.selectedCategory = this.store.categories.find(function(c) { return c.id === id; });
-      if (this.store.selectedCategory === undefined) {
-        this.showPage('app-menu');
-      } else {
-        this.showPage('app-solve');
-      }
-    }
   }
 }
 </script>
