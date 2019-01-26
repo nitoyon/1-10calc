@@ -4,10 +4,7 @@
       v-if="store.currentPage == 'app-menu'">
     </Menu>
     <Solve
-      v-if="store.currentPage == 'app-solve'"
-      :category="store.selectedCategory"
-      :histories="store.histories"
-      @show-page="showPage($event)">
+      v-if="store.currentPage == 'app-solve'">
     </Solve>
     <Stat
       v-if="store.currentPage == 'app-stat'">
@@ -28,12 +25,6 @@ export default {
   data: () => ({
     store,
   }),
-
-  methods: {
-    showPage: function(name) {
-      this.store.currentPage = name;
-    },
-  }
 }
 </script>
 
