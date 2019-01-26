@@ -1,7 +1,7 @@
 <template>
   <div id="qa" class="page">
     <header :class="'bg-' + category.id">
-      <span class="back" @click="$emit('show-page', 'app-menu')">
+      <span class="back" @click="showPage('app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>
       <div>{{category.done}} もんせいかい</div>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import store from '../store.js'
+
 export default {
   name: 'Solve',
   data: () => ({
@@ -37,9 +39,10 @@ export default {
       { label: 10, ng: false },
     ],
   }),
-  props: {
-    'category': Object,
-    'histories': Array
+
+  computed: {
+    category: () => store.selectedCategory,
+    histories: () => store.histories,
   },
 
   mounted: function() {
@@ -47,6 +50,8 @@ export default {
   },
 
   methods: {
+    showPage: (name) => store.showPage(name),
+
     initButtons: function() {
       var over10 = (this.category.id === 'add2' ? 11 : 1);
 

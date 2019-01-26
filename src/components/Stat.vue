@@ -1,7 +1,7 @@
 <template>
   <div id="stat" class="page">
     <header class="bg-stat">
-      <span class="back" @click="$emit('show-page', 'app-menu')">
+      <span class="back" @click="showPage('app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>
       <div><font-awesome-icon icon="chart-bar"/> 勉強結果</div>
@@ -28,9 +28,16 @@
 </template>
 
 <script>
+import store from '../store.js'
+
 export default {
   name: 'Stat',
-  props: ['histories'],
+  computed: {
+    histories: () => store.histories,
+  },
+  methods: {
+    showPage: (name) => store.showPage(name),
+  },
 }
 </script>
 

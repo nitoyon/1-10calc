@@ -6,7 +6,7 @@
         v-for="c in categories"
         :key="c.id"
         :class="'bg-' + c.id"
-        @click="$emit('set-category', c.id)">
+        @click="setCategory(c.id)">
         <h2>{{ c.title }}</h2>
         <span>{{ c.example }}</span>
         <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
@@ -28,7 +28,7 @@
         href="https://github.com/nitoyon/1-10calc/">
         <font-awesome-icon :icon="['fab', 'github']" size="lg"/>
       </a>
-      <a href="#" @click.prevent="$emit('show-page', 'app-stat')" id="showstat">
+      <a href="#" @click.prevent="showPage('app-stat')" id="showstat">
         <font-awesome-icon icon="chart-bar"/> 勉強結果を見る
       </a>
     </footer>
@@ -37,11 +37,18 @@
 
 <script>
 import AddMeToHome from './AddMeToHome.vue'
+import store from '../store'
 
 export default {
   name: 'Stat',
-  props: ['categories'],
   components: { AddMeToHome },
+  computed: {
+    categories: () => store.categories,
+  },
+  methods: {
+    setCategory: (id) => store.setCategory(id),
+    showPage: (name) => store.showPage(name),
+  },
 }
 </script>
 
