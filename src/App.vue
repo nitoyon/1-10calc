@@ -10,9 +10,7 @@
       @show-page="showPage($event)">
     </Solve>
     <Stat
-      v-if="store.currentPage == 'app-stat'"
-      :histories="store.histories"
-      @show-page="showPage($event)">
+      v-if="store.currentPage == 'app-stat'">
     </Stat>
   </div>
 </template>
