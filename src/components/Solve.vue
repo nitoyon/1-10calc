@@ -20,10 +20,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import store from '../store';
 
-export default {
+interface Button {
+  label: number;
+  ng: boolean;
+}
+
+export default Vue.extend({
   name: 'Solve',
   data: () => ({
     buttons: [
@@ -37,7 +43,7 @@ export default {
       { label: 8, ng: false },
       { label: 9, ng: false },
       { label: 10, ng: false },
-    ],
+    ] as Button[],
   }),
 
   computed: {
@@ -50,9 +56,10 @@ export default {
   },
 
   methods: {
-    showPage: name => store.showPage(name),
+    showPage: (name: string) => store.showPage(name),
 
     initButtons() {
+      if (this.category === null) { throw new Error('category is null'); }
       const over10 = (this.category.id === 'add2' ? 11 : 1);
 
       for (let i = 0; i < this.buttons.length; i++) {
@@ -62,6 +69,8 @@ export default {
     },
 
     newQuiz() {
+      if (this.category === null) { throw new Error('category is null'); }
+
       this.initButtons();
 
       this.category.q = this.findQuestion();
@@ -80,34 +89,40 @@ export default {
       });
     },
 
-    answer(btn) {
+    answer(btn: Button) {
+      const category = this.category;
+      if (category === null) { throw new Error('category is null'); }
+      const q = category.q;
+      if (q === null) { throw new Error('question is null'); }
+
       const clicked = btn.label;
-      const ans = this.category.q[2];
+      const ans = q[2];
 
       const h = this.histories[this.histories.length - 1];
       if (ans !== clicked) {
         h.ans.push({num: clicked, ok: false});
         btn.ng = true;
-        this.category.isNG = true;
+        category.isNG = true;
         setTimeout(() => {
-          this.category.isNG = false;
+          category.isNG = false;
         }, 500);
       } else {
         h.end = new Date();
         h.ans.push({num: ans, ok: true});
-        const all = this.category.questions;
-        all.splice(all.indexOf(this.category.q), 1);
+        const all = category.questions;
+        all.splice(all.indexOf(q), 1);
 
-        this.category.isOK = true;
+        category.isOK = true;
         setTimeout(() => {
-          this.category.isOK = false;
-          this.category.done++;
+          category.isOK = false;
+          category.done++;
           this.newQuiz();
         }, 500);
       }
     },
 
     findQuestion() {
+      if (this.category === null) { throw new Error('category is null'); }
       const all = this.category.questions;
       if (all.length === 0) {
         return null;
@@ -116,7 +131,7 @@ export default {
       return all[Math.floor(Math.random() * all.length)];
     },
   },
-};
+});
 </script>
 
 <style scoped>
