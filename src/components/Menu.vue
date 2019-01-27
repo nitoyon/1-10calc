@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import AddMeToHome from './AddMeToHome.vue';
 import store from '../store';
 
@@ -46,8 +46,8 @@ export default {
     categories: () => store.categories,
   },
   methods: {
-    setCategory: id => store.setCategory(id),
-    showPage: name => store.showPage(name),
+    setCategory: (id: string) => store.setCategory(id),
+    showPage: (name: string) => store.showPage(name),
   },
 };
 </script>
