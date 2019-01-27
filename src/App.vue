@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Menu from './components/Menu.vue';
 import Solve from './components/Solve.vue';
 import Stat from './components/Stat.vue';
