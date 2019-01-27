@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import store from '../store.js'
+import store from '../store';
 
 export default {
   name: 'Solve',
@@ -115,7 +115,7 @@ export default {
       }
 
       return all[Math.floor(Math.random() * all.length)];
-    }
+    },
   },
 };
 </script>

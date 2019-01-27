@@ -1,3 +1,25 @@
+interface Store {
+  currentPage: string;
+  selectedCategory: Category|null;
+  histories: any[];
+  categories: Category[];
+  init: () => void;
+  showPage: (name: string) => void;
+  setCategory: (name: string) => void;
+}
+
+interface Category {
+  id: string;
+  title: string;
+  example: string;
+  done: number;
+  sign: string;
+  isOK: boolean;
+  isNG: boolean;
+  q: [number, number, number]|null;
+  questions: Array<[number, number, number]>;
+}
+
 export default {
   currentPage: 'app-menu',
   selectedCategory: null,
@@ -63,16 +85,18 @@ export default {
     }
   },
 
-  showPage: function(name) {
+  showPage(name: string) {
     this.currentPage = name;
   },
 
-  setCategory: function(id) {
-    this.selectedCategory = this.categories.find((c) => c.id === id);
-    if (this.selectedCategory === undefined) {
+  setCategory(id: string) {
+    const found = this.categories.find(c => c.id === id);
+    if (found === undefined) {
+      this.selectedCategory = null;
       this.showPage('app-menu');
     } else {
+      this.selectedCategory = found;
       this.showPage('app-solve');
     }
-  }
-};
+  },
+} as Store;
