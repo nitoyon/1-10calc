@@ -45,23 +45,23 @@ export default {
     histories: () => store.histories,
   },
 
-  mounted: function() {
+  mounted() {
     this.newQuiz();
   },
 
   methods: {
-    showPage: (name) => store.showPage(name),
+    showPage: name => store.showPage(name),
 
-    initButtons: function() {
-      var over10 = (this.category.id === 'add2' ? 11 : 1);
+    initButtons() {
+      const over10 = (this.category.id === 'add2' ? 11 : 1);
 
-      for (var i = 0; i < this.buttons.length; i++) {
+      for (let i = 0; i < this.buttons.length; i++) {
         this.buttons[i].label = i + over10;
         this.buttons[i].ng = false;
       }
     },
 
-    newQuiz: function() {
+    newQuiz() {
       this.initButtons();
 
       this.category.q = this.findQuestion();
@@ -69,47 +69,46 @@ export default {
         return;
       }
 
-      var q = this.category.q;
-      var t = q[0] + this.category.sign + q[1];
+      const q = this.category.q;
+      const t = q[0] + this.category.sign + q[1];
       this.histories.push({
-        q: q,
+        q,
         text: t,
         start: new Date(),
         end: null,
-        ans: []
+        ans: [],
       });
     },
 
-    answer: function(btn) {
-      var clicked = btn.label;
-      var ans = this.category.q[2];
+    answer(btn) {
+      const clicked = btn.label;
+      const ans = this.category.q[2];
 
-      var self = this;
-      var h = this.histories[this.histories.length - 1];
+      const h = this.histories[this.histories.length - 1];
       if (ans !== clicked) {
         h.ans.push({num: clicked, ok: false});
         btn.ng = true;
         this.category.isNG = true;
-        setTimeout(function() {
-          self.category.isNG = false;
+        setTimeout(() => {
+          this.category.isNG = false;
         }, 500);
       } else {
         h.end = new Date();
         h.ans.push({num: ans, ok: true});
-        var all = this.category.questions;
+        const all = this.category.questions;
         all.splice(all.indexOf(this.category.q), 1);
 
         this.category.isOK = true;
-        setTimeout(function() {
-          self.category.isOK = false;
-          self.category.done++;
-          self.newQuiz();
+        setTimeout(() => {
+          this.category.isOK = false;
+          this.category.done++;
+          this.newQuiz();
         }, 500);
       }
     },
 
-    findQuestion: function() {
-      var all = this.category.questions;
+    findQuestion() {
+      const all = this.category.questions;
       if (all.length === 0) {
         return null;
       }
