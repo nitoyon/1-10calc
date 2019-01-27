@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import AddMeToHome from './AddMeToHome.vue'
-import store from '../store'
+import AddMeToHome from './AddMeToHome.vue';
+import store from '../store';
 
 export default {
   name: 'Stat',
@@ -46,10 +46,10 @@ export default {
     categories: () => store.categories,
   },
   methods: {
-    setCategory: (id) => store.setCategory(id),
-    showPage: (name) => store.showPage(name),
+    setCategory: id => store.setCategory(id),
+    showPage: name => store.showPage(name),
   },
-}
+};
 </script>
 
 <style scoped>
