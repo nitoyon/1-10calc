@@ -33,7 +33,7 @@ export default {
       sign: '+',
       isOK: false, isNG: false,
       q: null,
-      questions: []
+      questions: [],
     },
     {
       id: 'sub1',
@@ -43,7 +43,7 @@ export default {
       sign: '-',
       isOK: false, isNG: false,
       q: null,
-      questions: []
+      questions: [],
     },
     {
       id: 'add2',
@@ -53,7 +53,7 @@ export default {
       sign: '+',
       isOK: false, isNG: false,
       q: null,
-      questions: []
+      questions: [],
     },
     {
       id: 'sub2',
@@ -63,17 +63,17 @@ export default {
       sign: '-',
       isOK: false, isNG: false,
       q: null,
-      questions: []
-    }
+      questions: [],
+    },
   ],
 
   init() {
-    for (var x = 1; x <= 10; x++) {
-      for (var y = 1; y <= 10; y++) {
+    for (let x = 1; x <= 10; x++) {
+      for (let y = 1; y <= 10; y++) {
         if (x + y <= 10) {
           this.categories[0].questions.push([x, y, x + y]);
         } else {
-          if (x != 10 && y != 10) {
+          if (x !== 10 && y !== 10) {
             this.categories[2].questions.push([x, y, x + y]);
             this.categories[3].questions.push([x + y, y, x]);
           }
