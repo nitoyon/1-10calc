@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import store from '../store';
 
 export default {
@@ -36,7 +36,7 @@ export default {
     histories: () => store.histories,
   },
   methods: {
-    showPage: (name) => store.showPage(name),
+    showPage: (name: string) => store.showPage(name),
   },
 };
 </script>
