@@ -20,24 +20,24 @@ export default {
 
   data: () => {
     // show add me popup only once (iOS & Safari app)
-    var count = localStorage.getItem('add-me-closed');
-    var home = location.search.indexOf('homescreen') !== -1;
-    var standalone = window.navigator.standalone,
-      userAgent = window.navigator.userAgent.toLowerCase(),
-      safari = /safari/.test(userAgent),
-      ios = /iphone|ipod|ipad/.test(userAgent);
+    const count = localStorage.getItem('add-me-closed');
+    const home = location.search.indexOf('homescreen') !== -1;
+    const standalone = window.navigator.standalone;
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const safari = /safari/.test(userAgent);
+    const ios = /iphone|ipod|ipad/.test(userAgent);
     return { visible: count === null && !home && standalone && safari && ios };
   },
 
   methods: {
-    hide: function() {
-      var count = localStorage.getItem('add-me-closed');
+    hide() {
+      let count = localStorage.getItem('add-me-closed');
       count = (count == null ? 1 : count + 1);
       localStorage.setItem('add-me-closed', count);
       this.visible = false;
     },
   },
-}
+};
 </script>
 
 <style scoped>
