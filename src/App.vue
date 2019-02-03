@@ -44,12 +44,15 @@ div.page header {
   z-index: 4;
   position: fixed;
   width: 100%;
+  height: 40px;
 }
 
 div.page header .back {
   padding: 10px;
   color: white;
   font-size: 15px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   float: left;
 }
@@ -59,6 +62,7 @@ div.page header div {
   height: 30px;
   text-align: center;
   padding-top: 5px;
+  padding-right: 40px;
   font-size: 20px;
 }
 
