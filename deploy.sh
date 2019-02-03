@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# Deployment Proceure
-#
-# 1. Build to ./dist
-#    $ npm run build
-# 2. Run this script
-#    $ sh ./deploy.sh
-
 set -eu
 cd `dirname $0`
 
@@ -25,6 +18,13 @@ fi
 if [ ! -d $DST ]; then
 	echo Creating $DST...
 	git worktree add $DST gh-pages
+fi
+
+# publish
+npm run build
+if [ $? -ne 0 ]; then
+	echo Failed to build
+	exit 1
 fi
 
 # Delete all files in $DST (except for .git)
