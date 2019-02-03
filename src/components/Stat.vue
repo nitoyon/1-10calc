@@ -4,10 +4,10 @@
       <span class="back" @click="showPage('app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>
-      <div><font-awesome-icon icon="chart-bar"/> 勉強結果</div>
+      <div><font-awesome-icon icon="chart-bar"/> {{ $t('result_title') }}</div>
     </header>
     <section>
-      <h2 v-if="histories.length == 0">まだ 1 問も解いていません</h2>
+      <h2 v-if="histories.length == 0">{{ $t('not_solved')}}</h2>
       <table v-if="histories.length">
         <tr v-for="(h, index) in histories" :key="index">
           <td class="q">{{ h.text}}</td>
@@ -19,7 +19,7 @@
             </div>
           </td>
           <td class="time">
-            {{ h.end ? Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10 + " 秒" : "----"}}
+            {{ h.end ? $t('seconds', [Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10]) : "----"}}
           </td>
         </tr>
       </table>

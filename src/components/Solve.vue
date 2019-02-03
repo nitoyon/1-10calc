@@ -4,7 +4,7 @@
       <span class="back" @click="showPage('app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
       </span>
-      <div>{{category.done}} もんせいかい</div>
+      <div>{{ $t('done', [category.done]) }} [{{ $t(category.id) }}]</div>
     </header>
     <div id="q" v-if="category.q" :class="{ok: category.isOK, ng: category.isNG}">
       <span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span>
