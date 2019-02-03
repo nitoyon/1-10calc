@@ -151,8 +151,11 @@ button:focus {
 
 div#q {
   font-size: 60px;
+  height: 90px;
   text-align: center;
-  padding: 45px .5em 10px .5em;
+  position: fixed;
+  top: 40px;
+  width: 100%;
 }
 
 div#q.ok {
@@ -165,13 +168,19 @@ div#q.ng {
 
 #a {
   text-align: center;
+  position: fixed;
+  top: 130px;
+  width: 100%;
+  bottom: 0;
 }
 
 #a button {
   padding: 0;
   text-align: center;
   width: 33%;
-  height: calc((100% - 150px) / 4);
+  height: 25%;
+  border: 2px solid white;
+  border-radius: 40px;
   font-size: 4em;
 }
 #a button.ng {
