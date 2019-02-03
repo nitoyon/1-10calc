@@ -12,7 +12,7 @@
       <font-awesome-icon icon="question"/>
     </div>
     <div id="a" v-if="category.q">
-      <button v-for="b in buttons" :key="b.label" @click="answer(b)" :class="{ng: b.ng}">{{ b.label }}</button>
+      <button v-for="b in buttons" :key="b.label" @click="answer(b)" :class="{ng: b.ng, ok: b.ok}">{{ b.label }}</button>
     </div>
     <transition name="fadeout"><div id="ok" v-if="category.isOK">🙆</div></transition>
     <transition name="fadeout"><div id="ng" v-if="category.isNG">😢</div></transition>
@@ -26,6 +26,7 @@ import store from '../store';
 
 interface Button {
   label: number;
+  ok: boolean;
   ng: boolean;
 }
 
@@ -33,16 +34,16 @@ export default Vue.extend({
   name: 'Solve',
   data: () => ({
     buttons: [
-      { label: 1, ng: false },
-      { label: 2, ng: false },
-      { label: 3, ng: false },
-      { label: 4, ng: false },
-      { label: 5, ng: false },
-      { label: 6, ng: false },
-      { label: 7, ng: false },
-      { label: 8, ng: false },
-      { label: 9, ng: false },
-      { label: 10, ng: false },
+      { label: 1, ok: false, ng: false },
+      { label: 2, ok: false, ng: false },
+      { label: 3, ok: false, ng: false },
+      { label: 4, ok: false, ng: false },
+      { label: 5, ok: false, ng: false },
+      { label: 6, ok: false, ng: false },
+      { label: 7, ok: false, ng: false },
+      { label: 8, ok: false, ng: false },
+      { label: 9, ok: false, ng: false },
+      { label: 10, ok: false, ng: false },
     ] as Button[],
   }),
 
@@ -64,6 +65,7 @@ export default Vue.extend({
 
       for (let i = 0; i < this.buttons.length; i++) {
         this.buttons[i].label = i + over10;
+        this.buttons[i].ok = false;
         this.buttons[i].ng = false;
       }
     },
@@ -94,6 +96,7 @@ export default Vue.extend({
       if (category === null) { throw new Error('category is null'); }
       const q = category.q;
       if (q === null) { throw new Error('question is null'); }
+      if (btn.ok || btn.ng) { return; }
 
       const clicked = btn.label;
       const ans = q[2];
@@ -112,6 +115,7 @@ export default Vue.extend({
         const all = category.questions;
         all.splice(all.indexOf(q), 1);
 
+        btn.ok = true;
         category.isOK = true;
         setTimeout(() => {
           category.isOK = false;
@@ -135,20 +139,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-button {
-  border: 1px solid black;
-  background: #ccc;
-}
-
-button:active {
-  border: 1px solid black;
-  background: #fff;
-}
-
-button:focus {
-  outline: 0;
-}
-
 div#qa {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -166,11 +156,11 @@ div#q {
 }
 
 div#q.ok {
-  background: #78be20;
+  background: #ddee80;
 }
 
 div#q.ng {
-  background: red;
+  background: #ffcccc;
 }
 
 #a {
@@ -181,7 +171,8 @@ div#q.ng {
   bottom: 0;
 }
 
-#a button {
+button {
+  background: #ccc;
   padding: 0;
   text-align: center;
   width: 33%;
@@ -190,7 +181,21 @@ div#q.ng {
   border-radius: 40px;
   font-size: 4em;
 }
+
+button:active {
+  border: 1px solid black;
+  background: #ddd;
+}
+
+button:focus {
+  outline: 0;
+}
+
 #a button.ng {
+	background: #666;
+}
+
+#a button.ok {
 	background: #666;
 }
 
