@@ -27,8 +27,8 @@
   </div>
 </template>
 
-<script>
-import store from '../store.js'
+<script lang="ts">
+import store from '../store';
 
 export default {
   name: 'Stat',
@@ -36,9 +36,9 @@ export default {
     histories: () => store.histories,
   },
   methods: {
-    showPage: (name) => store.showPage(name),
+    showPage: (name: string) => store.showPage(name),
   },
-}
+};
 </script>
 
 <style scoped>

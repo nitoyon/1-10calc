@@ -12,11 +12,11 @@
   </div>
 </template>
 
-<script>
-import Menu from './components/Menu.vue'
-import Solve from './components/Solve.vue'
-import Stat from './components/Stat.vue'
-import store from './store.js'
+<script lang="ts">
+import Menu from './components/Menu.vue';
+import Solve from './components/Solve.vue';
+import Stat from './components/Stat.vue';
+import store from './store';
 
 store.init();
 
@@ -25,7 +25,7 @@ export default {
   data: () => ({
     store,
   }),
-}
+};
 </script>
 
 <style>

@@ -20,10 +20,16 @@
   </div>
 </template>
 
-<script>
-import store from '../store.js'
+<script lang="ts">
+import Vue from 'vue';
+import store from '../store';
 
-export default {
+interface Button {
+  label: number;
+  ng: boolean;
+}
+
+export default Vue.extend({
   name: 'Solve',
   data: () => ({
     buttons: [
@@ -37,7 +43,7 @@ export default {
       { label: 8, ng: false },
       { label: 9, ng: false },
       { label: 10, ng: false },
-    ],
+    ] as Button[],
   }),
 
   computed: {
@@ -45,23 +51,26 @@ export default {
     histories: () => store.histories,
   },
 
-  mounted: function() {
+  mounted() {
     this.newQuiz();
   },
 
   methods: {
-    showPage: (name) => store.showPage(name),
+    showPage: (name: string) => store.showPage(name),
 
-    initButtons: function() {
-      var over10 = (this.category.id === 'add2' ? 11 : 1);
+    initButtons() {
+      if (this.category === null) { throw new Error('category is null'); }
+      const over10 = (this.category.id === 'add2' ? 11 : 1);
 
-      for (var i = 0; i < this.buttons.length; i++) {
+      for (let i = 0; i < this.buttons.length; i++) {
         this.buttons[i].label = i + over10;
         this.buttons[i].ng = false;
       }
     },
 
-    newQuiz: function() {
+    newQuiz() {
+      if (this.category === null) { throw new Error('category is null'); }
+
       this.initButtons();
 
       this.category.q = this.findQuestion();
@@ -69,55 +78,60 @@ export default {
         return;
       }
 
-      var q = this.category.q;
-      var t = q[0] + this.category.sign + q[1];
+      const q = this.category.q;
+      const t = q[0] + this.category.sign + q[1];
       this.histories.push({
-        q: q,
+        q,
         text: t,
         start: new Date(),
         end: null,
-        ans: []
+        ans: [],
       });
     },
 
-    answer: function(btn) {
-      var clicked = btn.label;
-      var ans = this.category.q[2];
+    answer(btn: Button) {
+      const category = this.category;
+      if (category === null) { throw new Error('category is null'); }
+      const q = category.q;
+      if (q === null) { throw new Error('question is null'); }
 
-      var self = this;
-      var h = this.histories[this.histories.length - 1];
+      const clicked = btn.label;
+      const ans = q[2];
+
+      const h = this.histories[this.histories.length - 1];
       if (ans !== clicked) {
         h.ans.push({num: clicked, ok: false});
         btn.ng = true;
-        this.category.isNG = true;
-        setTimeout(function() {
-          self.category.isNG = false;
+        category.isNG = true;
+        setTimeout(() => {
+          category.isNG = false;
         }, 500);
       } else {
         h.end = new Date();
         h.ans.push({num: ans, ok: true});
-        var all = this.category.questions;
-        all.splice(all.indexOf(this.category.q), 1);
+        const all = category.questions;
+        all.splice(all.indexOf(q), 1);
 
-        this.category.isOK = true;
-        setTimeout(function() {
-          self.category.isOK = false;
-          self.category.done++;
-          self.newQuiz();
+        category.isOK = true;
+        setTimeout(() => {
+          category.isOK = false;
+          category.done++;
+          this.newQuiz();
         }, 500);
       }
     },
 
-    findQuestion: function() {
-      var all = this.category.questions;
+    findQuestion() {
+      if (this.category === null) { throw new Error('category is null'); }
+      const all = this.category.questions;
       if (all.length === 0) {
         return null;
       }
 
       return all[Math.floor(Math.random() * all.length)];
-    }
+    },
   },
-};
+});
 </script>
 
 <style scoped>
