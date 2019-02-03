@@ -24,6 +24,10 @@
         href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F">
         <font-awesome-icon :icon="['fab', 'twitter']" size="lg"/>
       </a>
+      <a class="share-line"
+        href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F">
+        <font-awesome-icon :icon="['fab', 'line']" size="lg"/>
+      </a>
       <a class="share-github"
         href="https://github.com/nitoyon/1-10calc/">
         <font-awesome-icon :icon="['fab', 'github']" size="lg"/>
@@ -109,7 +113,7 @@ div#select footer {
 div#select footer a {
   width: 30px;
   height: 27px;
-  padding-top: 3px;
+  padding-top: 4px;
   text-align: center;
   display: inline-block;
 }
@@ -136,6 +140,11 @@ div#select footer a:hover {
 
 .share-twitter {
   background: #55ACEE;
+  color: white;
+}
+
+.share-line {
+  background: #00c300;
   color: white;
 }
 
