@@ -1,15 +1,15 @@
 <template>
   <div id="select">
-    <h1><font-awesome-icon icon="pencil-alt"/> もんだいをえらんでね</h1>
+    <h1><font-awesome-icon icon="pencil-alt"/> {{ $t('notice') }}</h1>
     <section>
       <a
         v-for="c in categories"
         :key="c.id"
         :class="'bg-' + c.id"
         @click="setCategory(c.id)">
-        <h2>{{ c.title }}</h2>
+        <h2>{{ $t(c.id) }}</h2>
         <span>{{ c.example }}</span>
-        <span class="done" v-if="c.done > 0">{{ c.done }} もん</span>
+        <span class="done" v-if="c.done > 0">{{ $t('done', [c.done]) }}</span>
       </a>
     </section>
 
@@ -29,7 +29,7 @@
         <font-awesome-icon :icon="['fab', 'github']" size="lg"/>
       </a>
       <a href="#" @click.prevent="showPage('app-stat')" id="showstat">
-        <font-awesome-icon icon="chart-bar"/> 勉強結果を見る
+        <font-awesome-icon icon="chart-bar"/> {{ $t('result') }}
       </a>
     </footer>
   </div>
