@@ -10,7 +10,6 @@ interface Store {
 
 interface Category {
   id: string;
-  title: string;
   example: string;
   done: number;
   sign: string;
@@ -27,7 +26,6 @@ export default {
   categories: [
     {
       id: 'add1',
-      title: 'たしざん 1',
       example: '3 + 6',
       done: 0,
       sign: '+',
@@ -37,7 +35,6 @@ export default {
     },
     {
       id: 'sub1',
-      title: 'ひきざん 1',
       example: '8 - 3',
       done: 0,
       sign: '-',
@@ -47,7 +44,6 @@ export default {
     },
     {
       id: 'add2',
-      title: 'たしざん 2',
       example: '7 + 5',
       done: 0,
       sign: '+',
@@ -57,7 +53,6 @@ export default {
     },
     {
       id: 'sub2',
-      title: 'ひきざん 2',
       example: '13 - 7',
       done: 0,
       sign: '-',
