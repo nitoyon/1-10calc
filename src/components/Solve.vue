@@ -149,6 +149,13 @@ button:focus {
   outline: 0;
 }
 
+div#qa {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 div#q {
   font-size: 60px;
   height: 90px;
