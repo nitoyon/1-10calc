@@ -70,5 +70,6 @@ div.page header div {
 .bg-sub1 { background: #EDAD0B; }
 .bg-add2 { background: #A4C520; }
 .bg-sub2 { background: #1A95B7; }
+.bg-mul1 { background: #1A5CED; }
 .bg-stat { background: #666; }
 </style>

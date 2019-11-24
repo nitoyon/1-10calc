@@ -60,6 +60,15 @@ export default {
       q: null,
       questions: [],
     },
+    {
+      id: 'mul1',
+      example: '5 × 9',
+      done: 0,
+      sign: '×',
+      isOK: false, isNG: false,
+      q: null,
+      questions: [],
+    },
   ],
 
   init() {
@@ -75,6 +84,9 @@ export default {
         }
         if (x - y >= 1) {
           this.categories[1].questions.push([x, y, x - y]);
+        }
+        if (x < 10 && y < 10) {
+          this.categories[4].questions.push([x, y, x * y]);
         }
       }
     }

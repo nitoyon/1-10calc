@@ -84,6 +84,7 @@ div#select section a#add1 { background: #C7243A; }
 div#select section a#sub1 { background: #EDAD0B; }
 div#select section a#add2 { background: #A4C520; }
 div#select section a#sub2 { background: #1A95B7; }
+div#select section a#mul1 { background: #1A5CED; }
 
 div#select span.done {
   position: absolute;
