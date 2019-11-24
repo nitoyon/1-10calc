@@ -9,6 +9,9 @@
     <Stat
       v-if="store.currentPage == 'app-stat'">
     </Stat>
+    <QrCode
+      v-if="store.currentPage == 'app-qrcode'">
+    </QrCode>
   </div>
 </template>
 
@@ -16,12 +19,13 @@
 import Menu from './components/Menu.vue';
 import Solve from './components/Solve.vue';
 import Stat from './components/Stat.vue';
+import QrCode from './components/QrCode.vue';
 import store from './store';
 
 store.init();
 
 export default {
-  components: { Menu, Stat, Solve },
+  components: { Menu, Stat, Solve, QrCode },
   data: () => ({
     store,
   }),
@@ -72,4 +76,5 @@ div.page header div {
 .bg-sub2 { background: #1A95B7; }
 .bg-mul1 { background: #1A5CED; }
 .bg-stat { background: #666; }
+.bg-qrcode { background: #000; }
 </style>

@@ -16,6 +16,9 @@
     <AddMeToHome/>
 
     <footer>
+      <a class="share-qr" href="#" @click.prevent="showPage('app-qrcode')">
+        <font-awesome-icon :icon="['fas', 'qrcode']" size="lg"/>
+      </a>
       <a class="share-facebook"
         href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnitoyon.github.io%2F1-10calc%2F">
         <font-awesome-icon :icon="['fab', 'facebook-f']" size="lg"/>
@@ -132,6 +135,19 @@ div#select footer a#showstat {
 
 div#select footer a:hover {
   opacity: 0.7;
+}
+
+.share-qr {
+  background: #000;
+  color: #fff;
+}
+
+.share-qr img {
+  width: 2px;
+  height: 2px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
 }
 
 .share-facebook {

@@ -20,6 +20,7 @@ export default new VueI18n({
       result_title: 'Results',
       not_solved: 'You have not solved any problem yet.',
       seconds: '{0} sec',
+      qr_code: 'QR Code',
     },
     ja: {
       title: 'けいさんカードアプリ',
@@ -34,6 +35,7 @@ export default new VueI18n({
       result_title: '勉強結果',
       not_solved: 'まだ 1 問も解いていません',
       seconds: '{0} 秒',
+      qr_code: 'QR コード',
     },
   },
 });

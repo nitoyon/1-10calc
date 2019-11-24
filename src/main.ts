@@ -3,11 +3,11 @@ import App from './App.vue';
 import i18n from './i18n';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft, faChartBar, faCheck, faExclamationTriangle, faPencilAlt,
-  faPlusSquare, faQuestion, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+  faPlusSquare, faQuestion, faWindowClose, faQrcode } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faTwitter, faGithub, faLine } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faArrowLeft, faChartBar, faCheck, faExclamationTriangle, faPencilAlt,
+library.add(faArrowLeft, faChartBar, faCheck, faExclamationTriangle, faPencilAlt, faQrcode,
   faPlusSquare, faQuestion, faWindowClose, faFacebookF, faGithub, faTwitter, faLine);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
