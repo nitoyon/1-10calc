@@ -1,5 +1,5 @@
 <template>
-  <div id="qa" class="page">
+  <div id="qa" class="page" :class="'page-' + category.id">
     <header :class="'bg-' + category.id">
       <span class="back" @click="showPage('app-menu')">
         <font-awesome-icon icon="arrow-left" size="lg"/>
@@ -176,6 +176,11 @@ div#q {
   position: fixed;
   top: 40px;
   width: 100%;
+}
+
+.page-mul1 div#q {
+  text-align: left;
+  padding-left: .5em;
 }
 
 div#q.ok {
