@@ -25,20 +25,16 @@ export default Vue.extend({
 
   data: () => {
     // show add me popup only once (iOS & Safari app)
-    const count = localStorage.getItem('add-me-closed');
     const home = location.search.indexOf('homescreen') !== -1;
     const standalone = (window.navigator as any).standalone;
     const userAgent = window.navigator.userAgent.toLowerCase();
     const safari = /safari/.test(userAgent);
     const ios = /iphone|ipod|ipad/.test(userAgent);
-    return { visible: count === null && !home && standalone && safari && ios };
+    return { visible: !home && standalone && safari && ios };
   },
 
   methods: {
     hide() {
-      const countVal = localStorage.getItem('add-me-closed');
-      const count = (countVal == null ? 1 : countVal + 1);
-      localStorage.setItem('add-me-closed', count.toString());
       this.visible = false;
     },
   },
