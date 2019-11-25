@@ -21,6 +21,11 @@ export default new VueI18n({
       not_solved: 'You have not solved any problem yet.',
       seconds: '{0} sec',
       qr_code: 'QR Code',
+      add_to_home_screen1: 'Add this app to home screen!',
+      add_to_home_screen2: 'Tap',
+      add_to_home_screen3: 'and select',
+      add_to_home_screen4: 'Add to Home Screen',
+      add_to_home_screen5: '',
     },
     ja: {
       title: 'けいさんカードアプリ',
@@ -36,6 +41,11 @@ export default new VueI18n({
       not_solved: 'まだ 1 問も解いていません',
       seconds: '{0} 秒',
       qr_code: 'QR コード',
+      add_to_home_screen1: 'このアプリをホーム画面から開けるようにしてください。',
+      add_to_home_screen2: '',
+      add_to_home_screen3: 'をタップして',
+      add_to_home_screen4: 'ホーム画面に追加',
+      add_to_home_screen5: 'をタップするだけです。',
     },
   },
 });

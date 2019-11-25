@@ -71,7 +71,7 @@ div#select h1 {
 }
 
 div#select section {
-  padding-bottom: 40px;
+  padding-bottom: 120px;
 }
 
 div#select section:after {

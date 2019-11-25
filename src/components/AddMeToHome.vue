@@ -1,16 +1,17 @@
 <template>
   <div id="add-me-to-home" v-if="visible" @click="hide()">
     <font-awesome-icon icon="window-close" class="close"/>
-    このアプリをホーム画面から開けるようにしましょう。<br>
+    {{$t('add_to_home_screen1')}}<br>
+    {{$t('add_to_home_screen2')}}
     <svg height="20px" id="Layer_1" version="1.1" viewBox="0 0 50 50" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <polyline fill="none" points="17,10 25,2 33,10   " stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
       <line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" x1="25" x2="25" y1="32" y2="2.333"/>
       <rect fill="none" height="50" width="50"/>
       <path d="M17,17H8v32h34V17h-9" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     </svg>
-    をタップして
-    <font-awesome-icon icon="plus-square"/> <strong> ホーム画面に追加</strong>
-    をタップするだけです。
+    {{$t('add_to_home_screen3')}}
+    <font-awesome-icon icon="plus-square"/> <strong> {{$t('add_to_home_screen4')}}</strong>
+    {{$t('add_to_home_screen5')}}
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default Vue.extend({
     const userAgent = window.navigator.userAgent.toLowerCase();
     const safari = /safari/.test(userAgent);
     const ios = /iphone|ipod|ipad/.test(userAgent);
-    return { visible: !home && standalone && safari && ios };
+    return { visible: !home && !standalone && safari && ios };
   },
 
   methods: {
