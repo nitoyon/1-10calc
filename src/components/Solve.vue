@@ -170,8 +170,9 @@ div#qa {
 }
 
 div#q {
-  font-size: 60px;
-  height: 90px;
+  padding-top: 7px;
+  font-size: 50px;
+  height: 83px;
   text-align: center;
   position: fixed;
   top: 40px;

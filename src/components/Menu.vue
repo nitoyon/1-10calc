@@ -67,7 +67,17 @@ div#select {
 
 div#select h1 {
   font-size: 1.5em;
-  padding: 1em;
+  padding: .5em 1em 0;
+}
+
+div#select section {
+  padding-bottom: 40px;
+}
+
+div#select section:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 div#select section a {
