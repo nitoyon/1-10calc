@@ -122,6 +122,7 @@ div#select footer {
   width: 100%;
   height: 30px;
   background: #ccc;
+  border-bottom: env(safe-area-inset-bottom) solid black;
 }
 
 div#select footer a {
