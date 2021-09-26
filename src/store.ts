@@ -18,8 +18,10 @@ interface Category {
   q: [number, number, number]|null;
   qStart: Date;
   questions: Array<[number, number, number]>;
+  left: Array<[number, number, number]>;
   solved: number;
   time: number;
+  timeCurrent: number;
   failed: Array<[number, number, number]>;
 }
 
@@ -37,8 +39,10 @@ export default {
       q: null,
       qStart: new Date(0),
       questions: [],
+      left: [],
       solved: 0,
       time: 0,
+      timeCurrent: 0,
       failed: [],
     },
     {
@@ -50,6 +54,7 @@ export default {
       q: null,
       qStart: new Date(0),
       questions: [],
+      left: [],
       solved: 0,
       time: 0,
       failed: [],
@@ -63,8 +68,10 @@ export default {
       q: null,
       qStart: new Date(0),
       questions: [],
+      left: [],
       solved: 0,
       time: 0,
+      timeCurrent: 0,
       failed: [],
     },
     {
@@ -76,8 +83,10 @@ export default {
       q: null,
       qStart: new Date(0),
       questions: [],
+      left: [],
       solved: 0,
       time: 0,
+      timeCurrent: 0,
       failed: [],
     },
     {
@@ -89,8 +98,10 @@ export default {
       q: null,
       qStart: new Date(0),
       questions: [],
+      left: [],
       solved: 0,
       time: 0,
+      timeCurrent: 0,
       failed: [],
     },
   ],
@@ -113,6 +124,10 @@ export default {
           this.categories[4].questions.push([x, y, x * y]);
         }
       }
+    }
+
+    for (const category of this.categories) {
+      category.left = [...category.questions];
     }
   },
 

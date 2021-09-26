@@ -18,7 +18,16 @@
     </div>
     <transition name="fadeout"><div id="ok" v-if="category.isOK">🙆</div></transition>
     <transition name="fadeout"><div id="ng" v-if="category.isNG">😢</div></transition>
-    <div id="done" v-if="!category.q">🎉</div>
+    <div id="done" v-if="!category.q">
+      <div class="title">🎉{{$t('complete')}}</div>
+      <div class="result">
+        <span v-if="category.timeCurrent > 60 * 1000">
+          <span class="value">{{ Math.floor(category.timeCurrent / 60 / 1000) }}</span> {{ $t('min_user') }}
+        </span>
+        <span class="value">{{ Math.floor(category.timeCurrent / 1000) % 60 }}</span> {{ $t('sec_user') }}
+      </div>
+      <button @click="retry()">{{ $t('retry') }}</button>
+    </div>
   </div>
 </template>
 
@@ -105,6 +114,14 @@ export default Vue.extend({
       this.showQuestionMark = true;
     },
 
+    retry() {
+      const category = this.category;
+      if (category === null) { throw new Error('category is null'); }
+      category.left = [...category.questions];
+      category.timeCurrent = 0;
+      this.newQuiz();
+    },
+
     answer(btn: Button) {
       const category = this.category;
       if (category === null) { throw new Error('category is null'); }
@@ -136,10 +153,12 @@ export default Vue.extend({
         }, 500);
       } else {
         category.solved++;
-        category.time += new Date().getTime() - category.qStart.getTime();
+        const elapsed = new Date().getTime() - category.qStart.getTime();
+        category.time += elapsed;
+        category.timeCurrent += elapsed;
         h.end = new Date();
         h.ans.push({num: ans, ok: true});
-        const all = category.questions;
+        const all = category.left;
         all.splice(all.indexOf(q), 1);
 
         btn.ok = true;
@@ -154,7 +173,7 @@ export default Vue.extend({
 
     findQuestion() {
       if (this.category === null) { throw new Error('category is null'); }
-      const all = this.category.questions;
+      const all = this.category.left;
       if (all.length === 0) {
         return null;
       }
@@ -204,7 +223,7 @@ div#q.ng {
   bottom: 0;
 }
 
-button {
+#a button {
   background: #ccc;
   padding: 0;
   text-align: center;
@@ -245,7 +264,7 @@ button:focus {
   color: #ddd;
 }
 
-div#ok, div#ng, div#done {
+div#ok, div#ng {
   position: absolute;
   margin: auto;
   height: 180px;
@@ -255,6 +274,32 @@ div#ok, div#ng, div#done {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+div#done {
+  padding-top: 60px;
+  text-align: center;
+}
+
+div#done div.title {
+  font-size: 2em;
+  padding-bottom: .5em;
+}
+
+div#done div.result {
+  font-size: 1.5em;
+  padding: 1em 0 1em 0;
+}
+
+div#done span.value {
+  font-size: 1.5em;
+}
+
+div#done button{
+  font-size: 2em;
+  border: 2px solid black;
+  border-radius: 40px;
+  padding: 1em;
 }
 
 .fadeout-leave-active {
