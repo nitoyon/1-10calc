@@ -120,15 +120,15 @@ div#select footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 30px;
+  height: 38px;
   background: #ccc;
   border-bottom: env(safe-area-inset-bottom) solid black;
 }
 
 div#select footer a {
-  width: 30px;
-  height: 27px;
-  padding-top: 4px;
+  width: 38px;
+  height: 31px;
+  padding-top: 7px;
   text-align: center;
   display: inline-block;
 }
