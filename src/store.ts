@@ -7,101 +7,38 @@ interface Store {
   setCategory: (name: string) => void;
 }
 
-interface Category {
-  id: string;
-  example: string;
-  done: number;
-  sign: string;
-  isOK: boolean;
-  isNG: boolean;
-  q: [number, number, number]|null;
-  qStart: Date;
-  questions: Array<[number, number, number]>;
-  left: Array<[number, number, number]>;
-  solved: number;
-  time: number;
-  timeCurrent: number;
-  failed: Array<[number, number, number]>;
+class Category {
+  public id: string;
+  public example: string;
+  public done: number = 0;
+  public sign: string;
+  public isOK: boolean = false;
+  public isNG: boolean = false;
+  public q: Question|null = null;
+  public qStart: Date = new Date(0);
+  public questions: Question[] = [];
+  public left: Question[] = [];
+  public solved: number = 0;
+  public time: number = 0;
+  public timeCurrent: number = 0;
+  public failed: Question[] = [];
+
+  constructor(id: string, example: string, sign: string) {
+    this.id = id;
+    this.example = example;
+    this.sign = sign;
+  }
 }
 
 export default {
   currentPage: 'app-menu',
   selectedCategory: null,
   categories: [
-    {
-      id: 'add1',
-      example: '3 + 6',
-      done: 0,
-      sign: '+',
-      isOK: false, isNG: false,
-      q: null,
-      qStart: new Date(0),
-      questions: [],
-      left: [],
-      solved: 0,
-      time: 0,
-      timeCurrent: 0,
-      failed: [],
-    },
-    {
-      id: 'sub1',
-      example: '8 - 3',
-      done: 0,
-      sign: '-',
-      isOK: false, isNG: false,
-      q: null,
-      qStart: new Date(0),
-      questions: [],
-      left: [],
-      solved: 0,
-      time: 0,
-      failed: [],
-    },
-    {
-      id: 'add2',
-      example: '7 + 5',
-      done: 0,
-      sign: '+',
-      isOK: false, isNG: false,
-      q: null,
-      qStart: new Date(0),
-      questions: [],
-      left: [],
-      solved: 0,
-      time: 0,
-      timeCurrent: 0,
-      failed: [],
-    },
-    {
-      id: 'sub2',
-      example: '13 - 7',
-      done: 0,
-      sign: '-',
-      isOK: false, isNG: false,
-      q: null,
-      qStart: new Date(0),
-      questions: [],
-      left: [],
-      solved: 0,
-      time: 0,
-      timeCurrent: 0,
-      failed: [],
-    },
-    {
-      id: 'mul1',
-      example: '5 × 9',
-      done: 0,
-      sign: '×',
-      isOK: false, isNG: false,
-      q: null,
-      qStart: new Date(0),
-      questions: [],
-      left: [],
-      solved: 0,
-      time: 0,
-      timeCurrent: 0,
-      failed: [],
-    },
+    new Category('add1', '3 + 6', '+'),
+    new Category('sub1', '8 - 3', '-'),
+    new Category('add2', '7 + 5', '+'),
+    new Category('sub2', '13 - 7', '-'),
+    new Category('mul1', '5 × 9', '×'),
   ],
 
   init() {
