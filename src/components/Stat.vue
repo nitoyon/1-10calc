@@ -7,22 +7,40 @@
       <div><font-awesome-icon icon="chart-bar"/> {{ $t('result_title') }}</div>
     </header>
     <section>
-      <h2 v-if="histories.length == 0">{{ $t('not_solved')}}</h2>
-      <table v-if="histories.length">
-        <tr v-for="(h, index) in histories" :key="index">
-          <td class="q">{{ h.text}}</td>
-          <td class="ans">
-            <div v-for="(a, i) in h.ans" :key="i">
-              <font-awesome-icon icon="check" class="ok" v-if="a.ok"/>
-              <font-awesome-icon icon="exclamation-triangle" class="ng" v-if="!a.ok"/>
-              {{a.num}}
-            </div>
-          </td>
-          <td class="time">
-            {{ h.end ? $t('seconds', [Math.floor((h.end.getTime() - h.start.getTime()) / 100) / 10]) : "----"}}
-          </td>
-        </tr>
-      </table>
+      <div v-for="c in categories" :key="c.id">
+        <h3 :class="'bg-' + c.id">{{ $t(c.id) }}</h3>
+        <span v-if="c.solved == 0">{{ $t('not_solved')}}</span>
+        <div v-else>
+          <div class="average">
+            {{$t('second_per_problem1')}}
+            <span class="value">{{ (c.time / 1000 / c.solved).toPrecision(3)}}</span>
+            {{$t('second_per_problem2')}}
+          </div>
+          <table>
+            <tr>
+              <td>{{$t('solved_time')}}:</td>
+              <td><span class="value">{{(c.time / 1000).toPrecision(3)}}</span> {{$t('seconds')}}</td>
+            </tr>
+            <tr>
+              <td>{{$t('solved_count')}}:</td>
+              <td><span class="value">{{c.solved}}</span> {{$t('problems')}}</td>
+            </tr>
+            <tr>
+              <td>{{$t('solve_ratio')}}:</td>
+              <td><span class="value">{{Math.floor(c.solved / (c.solved + c.failed.length) * 100)}}</span>%</td></td>
+            </tr>
+            <tr>
+              <td class="vtop">{{$t('solve_failed')}}:</td>
+              <td v-if="c.failed.length == 0">🎉{{$t('none')}}</td>
+              <td v-else>
+                <div v-for="(a, i) in c.failed" :key="i">
+                  {{a[0]}}{{c.sign}}{{a[1]}} = <font-awesome-icon icon="exclamation-triangle" class="ng"/>{{a[2]}}
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -33,6 +51,7 @@ import store from '../store';
 export default {
   name: 'Stat',
   computed: {
+    categories: () => store.categories,
     histories: () => store.histories,
   },
   methods: {
@@ -48,27 +67,41 @@ export default {
   left: 0;
 }
 
-#stat section h2 {
-  padding: 80px 1em 0 1em;
+#stat section {
+  padding: 40px 1em 0 1em;
+}
+
+#stat h3 {
+  font-size: 1;
+  color: white;
+  padding: .2em;
+  border-radius: 5px;
+  margin-bottom: .4em;
+}
+
+#stat .average {
+  font-size: 2em;
+  display: block;
+}
+
+#stat .count {
+  padding-right: 3em;
+}
+
+#stat span.value {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 #stat section table {
-  margin: 0;
-  position: relative;
-  top: 40px;
-  width: 100%;
   border-collapse: collapse;
 }
 
 #stat section table tr td {
-  padding: .2em 0;
+  padding-left: 1em;
 }
 
-#stat section table tr:nth-child(even) {
-  background: #eeeeee;
-}
-
-#stat section table td {
+#stat section table tr td.vtop {
   vertical-align: top;
 }
 
@@ -91,9 +124,6 @@ export default {
   width: 4em;
 }
 
-#stat section td div .ok {
-  color: #228B22;
-}
 #stat section td div .ng {
   color: red;
 }

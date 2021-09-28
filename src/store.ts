@@ -16,7 +16,11 @@ interface Category {
   isOK: boolean;
   isNG: boolean;
   q: [number, number, number]|null;
+  qStart: Date;
   questions: Array<[number, number, number]>;
+  solved: number;
+  time: number;
+  failed: Array<[number, number, number]>;
 }
 
 export default {
@@ -31,7 +35,11 @@ export default {
       sign: '+',
       isOK: false, isNG: false,
       q: null,
+      qStart: new Date(0),
       questions: [],
+      solved: 0,
+      time: 0,
+      failed: [],
     },
     {
       id: 'sub1',
@@ -40,7 +48,11 @@ export default {
       sign: '-',
       isOK: false, isNG: false,
       q: null,
+      qStart: new Date(0),
       questions: [],
+      solved: 0,
+      time: 0,
+      failed: [],
     },
     {
       id: 'add2',
@@ -49,7 +61,11 @@ export default {
       sign: '+',
       isOK: false, isNG: false,
       q: null,
+      qStart: new Date(0),
       questions: [],
+      solved: 0,
+      time: 0,
+      failed: [],
     },
     {
       id: 'sub2',
@@ -58,7 +74,11 @@ export default {
       sign: '-',
       isOK: false, isNG: false,
       q: null,
+      qStart: new Date(0),
       questions: [],
+      solved: 0,
+      time: 0,
+      failed: [],
     },
     {
       id: 'mul1',
@@ -67,7 +87,11 @@ export default {
       sign: '×',
       isOK: false, isNG: false,
       q: null,
+      qStart: new Date(0),
       questions: [],
+      solved: 0,
+      time: 0,
+      failed: [],
     },
   ],
 

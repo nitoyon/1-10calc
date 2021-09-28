@@ -90,6 +90,7 @@ export default Vue.extend({
 
       const q = this.category.q;
       const t = q[0] + this.category.sign + q[1];
+      this.category.qStart = new Date();
       this.histories.push({
         q,
         text: t,
@@ -124,6 +125,7 @@ export default Vue.extend({
 
       const h = this.histories[this.histories.length - 1];
       if (ans !== clicked) {
+        category.failed.push([q[0], q[1], clicked]);
         h.ans.push({num: clicked, ok: false});
         btn.ng = !this.isMultiple;
         category.isNG = true;
@@ -133,6 +135,8 @@ export default Vue.extend({
           category.isNG = false;
         }, 500);
       } else {
+        category.solved++;
+        category.time += new Date().getTime() - category.qStart.getTime();
         h.end = new Date();
         h.ans.push({num: ans, ok: true});
         const all = category.questions;
