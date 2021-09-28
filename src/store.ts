@@ -1,3 +1,4 @@
+/* tslint:disable:max-classes-per-file */
 interface Store {
   currentPage: string;
   selectedCategory: Category|null;
@@ -5,6 +6,18 @@ interface Store {
   init: () => void;
   showPage: (name: string) => void;
   setCategory: (name: string) => void;
+}
+
+export class Question {
+  public lhs: number;
+  public rhs: number;
+  public ans: number;
+
+  constructor(lhs: number, rhs: number, ans: number) {
+    this.lhs = lhs;
+    this.rhs = rhs;
+    this.ans = ans;
+  }
 }
 
 class Category {
@@ -45,18 +58,18 @@ export default {
     for (let x = 1; x <= 10; x++) {
       for (let y = 1; y <= 10; y++) {
         if (x + y <= 10) {
-          this.categories[0].questions.push([x, y, x + y]);
+          this.categories[0].questions.push(new Question(x, y, x + y));
         } else {
           if (x !== 10 && y !== 10) {
-            this.categories[2].questions.push([x, y, x + y]);
-            this.categories[3].questions.push([x + y, y, x]);
+            this.categories[2].questions.push(new Question(x, y, x + y));
+            this.categories[3].questions.push(new Question(x + y, y, x));
           }
         }
         if (x - y >= 1) {
-          this.categories[1].questions.push([x, y, x - y]);
+          this.categories[1].questions.push(new Question(x, y, x - y));
         }
         if (x < 10 && y < 10) {
-          this.categories[4].questions.push([x, y, x * y]);
+          this.categories[4].questions.push(new Question(x, y, x * y));
         }
       }
     }

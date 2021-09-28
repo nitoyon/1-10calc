@@ -34,7 +34,7 @@
               <td v-if="c.failed.length == 0">🎉{{$t('none')}}</td>
               <td v-else>
                 <div v-for="(a, i) in c.failed" :key="i">
-                  {{a[0]}}{{c.sign}}{{a[1]}} = <font-awesome-icon icon="exclamation-triangle" class="ng"/>{{a[2]}}
+                  {{a.lhs}}{{c.sign}}{{a.rhs}} = <font-awesome-icon icon="exclamation-triangle" class="ng"/>{{a.ans}}
                 </div>
               </td>
             </tr>

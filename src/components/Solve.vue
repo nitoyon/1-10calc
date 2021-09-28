@@ -7,7 +7,7 @@
       <div>{{ $t('done', [category.done]) }} [{{ $t(category.id) }}]</div>
     </header>
     <div id="q" v-if="category.q" :class="{ok: category.isOK, ng: category.isNG}">
-      <span>{{ category.q[0] }} {{ category.sign }} {{ category.q[1] }}</span>
+      <span>{{ category.q.lhs }} {{ category.sign }} {{ category.q.rhs }}</span>
       =
       <template v-if="inputValue">{{inputValue}}</template>
       <font-awesome-icon icon="question" v-if="showQuestionMark"/>
@@ -34,6 +34,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import store from '../store';
+import {Question} from '../store';
 
 interface Button {
   label: number;
@@ -96,8 +97,6 @@ export default Vue.extend({
         return;
       }
 
-      const q = this.category.q;
-      const t = q[0] + this.category.sign + q[1];
       this.category.qStart = new Date();
     },
 
@@ -122,7 +121,7 @@ export default Vue.extend({
       if (!this.isMultiple && (btn.ok || btn.ng)) { return; }
 
       const clicked = this.inputValue * 10 + btn.label;
-      const ans = q[2];
+      const ans = q.ans;
 
       if (this.isMultiple) {
         this.inputValue = clicked;
@@ -133,7 +132,7 @@ export default Vue.extend({
       }
 
       if (ans !== clicked) {
-        category.failed.push([q[0], q[1], clicked]);
+        category.failed.push(new Question(q.lhs, q.rhs, clicked));
         btn.ng = !this.isMultiple;
         category.isNG = true;
         setTimeout(() => {
