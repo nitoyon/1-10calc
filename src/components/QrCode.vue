@@ -18,9 +18,6 @@ import store from '../store';
 
 export default {
   name: 'QrCode',
-  computed: {
-    histories: () => store.histories,
-  },
   methods: {
     showPage: (name: string) => store.showPage(name),
   },

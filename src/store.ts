@@ -1,7 +1,6 @@
 interface Store {
   currentPage: string;
   selectedCategory: Category|null;
-  histories: any[];
   categories: Category[];
   init: () => void;
   showPage: (name: string) => void;
@@ -28,7 +27,6 @@ interface Category {
 export default {
   currentPage: 'app-menu',
   selectedCategory: null,
-  histories: [],
   categories: [
     {
       id: 'add1',

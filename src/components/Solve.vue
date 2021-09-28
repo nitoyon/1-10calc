@@ -62,7 +62,6 @@ export default Vue.extend({
 
   computed: {
     category: () => store.selectedCategory,
-    histories: () => store.histories,
     isMultiple: () => store.selectedCategory != null && store.selectedCategory.id === 'mul1',
   },
 
@@ -100,13 +99,6 @@ export default Vue.extend({
       const q = this.category.q;
       const t = q[0] + this.category.sign + q[1];
       this.category.qStart = new Date();
-      this.histories.push({
-        q,
-        text: t,
-        start: new Date(),
-        end: null,
-        ans: [],
-      });
     },
 
     clear() {
@@ -140,10 +132,8 @@ export default Vue.extend({
         this.showQuestionMark = false;
       }
 
-      const h = this.histories[this.histories.length - 1];
       if (ans !== clicked) {
         category.failed.push([q[0], q[1], clicked]);
-        h.ans.push({num: clicked, ok: false});
         btn.ng = !this.isMultiple;
         category.isNG = true;
         setTimeout(() => {
@@ -156,8 +146,6 @@ export default Vue.extend({
         const elapsed = new Date().getTime() - category.qStart.getTime();
         category.time += elapsed;
         category.timeCurrent += elapsed;
-        h.end = new Date();
-        h.ans.push({num: ans, ok: true});
         const all = category.left;
         all.splice(all.indexOf(q), 1);
 

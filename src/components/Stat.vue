@@ -52,7 +52,6 @@ export default {
   name: 'Stat',
   computed: {
     categories: () => store.categories,
-    histories: () => store.histories,
   },
   methods: {
     showPage: (name: string) => store.showPage(name),
